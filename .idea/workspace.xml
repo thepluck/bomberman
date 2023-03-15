@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e9a076d4-2b39-4e89-a16a-d15fadf12e92" name="Changes" comment="Second commit">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uet/oop/bomberman/BombermanGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uet/oop/bomberman/entities/Bomber.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uet/oop/bomberman/entities/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uet/oop/bomberman/entities/Grass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uet/oop/bomberman/entities/Wall.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uet/oop/bomberman/graphics/Sprite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uet/oop/bomberman/graphics/SpriteSheet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/demo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/levels/Level1.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/balloom_dead.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/balloom_left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/balloom_left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/balloom_left3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/balloom_right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/balloom_right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/balloom_right3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/bomb.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/bomb_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/bomb_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/bomb_exploded.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/bomb_exploded1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/bomb_exploded2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/brick.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/brick_exploded.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/brick_exploded1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/brick_exploded2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/doll_dead.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/doll_left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/doll_left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/doll_left3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/doll_right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/doll_right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/doll_right3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_horizontal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_horizontal1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_horizontal2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_horizontal_left_last.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_horizontal_left_last1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_horizontal_left_last2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_horizontal_right_last.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_horizontal_right_last1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_horizontal_right_last2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_vertical.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_vertical1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_vertical2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_vertical_down_last.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_vertical_down_last1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_vertical_down_last2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_vertical_top_last.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_vertical_top_last1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/explosion_vertical_top_last2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/grass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/kondoria_dead.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/kondoria_left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/kondoria_left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/kondoria_left3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/kondoria_right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/kondoria_right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/kondoria_right3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/minvo_dead.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/minvo_left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/minvo_left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/minvo_left3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/minvo_right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/minvo_right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/minvo_right3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/mob_dead1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/mob_dead2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/mob_dead3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/oneal_dead.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/oneal_left1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/oneal_left2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/oneal_left3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/oneal_right1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/oneal_right2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/oneal_right3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_dead1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_dead2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_dead3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_down_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_down_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_left.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_left_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_left_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_right.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_right_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_right_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_up.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_up_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/player_up_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/portal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/powerup_bombpass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/powerup_bombs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/powerup_detonator.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/powerup_flamepass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/powerup_flames.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/powerup_speed.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/powerup_wallpass.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/sprites/wall.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/textures/classic.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/uet/oop/bomberman/textures/classic.png" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2N3oLuMNL0TV78kegnDy2s7RnLH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e9a076d4-2b39-4e89-a16a-d15fadf12e92" name="Changes" comment="" />
+      <created>1678902074998</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678902074998</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Second commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Second commit" />
+  </component>
+</project>
