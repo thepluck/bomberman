@@ -10,14 +10,17 @@ import uet.oop.bomberman.entities.bombers.Explosion;
 import uet.oop.bomberman.entities.enemies.*;
 import uet.oop.bomberman.entities.static_entities.Brick;
 import uet.oop.bomberman.entities.static_entities.Grass;
-import uet.oop.bomberman.entities.static_entities.Item;
+import uet.oop.bomberman.entities.basis.Item;
 import uet.oop.bomberman.entities.static_entities.Wall;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.entities.items.BombItem;
+import uet.oop.bomberman.entities.items.FlameItem;
+import uet.oop.bomberman.entities.items.Portal;
+import uet.oop.bomberman.entities.items.SpeedItem;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,7 +59,7 @@ public class Map {
   }
 
   public static void readMap() {
-    Scanner scanner = null;
+    Scanner scanner;
     try {
       scanner = new Scanner(new File("res/levels/Level" + level + ".txt"));
     } catch (FileNotFoundException e) {
@@ -77,63 +80,71 @@ public class Map {
         Entity entity;
         switch (line.charAt(j)) {
           case '#' -> {
-            entity = new Wall(j, i, Sprite.wall.getFxImage());
+            entity = new Wall(j, i);
             stillObjects.add(entity);
           }
           case '*' -> {
-            entity = new Brick(j, i, Sprite.grass.getFxImage());
-            stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+            entity = new Brick(j, i);
+            stillObjects.add(new Grass(j, i));
             bricks.add((Brick) entity);
           }
           case 'p' -> {
             bomber = new Bomber(j, i, Sprite.player_right.getFxImage());
-            entity = new Grass(j, i, Sprite.grass.getFxImage());
+            entity = new Grass(j, i);
             stillObjects.add(entity);
             entities.add(bomber);
           }
-          case 'f', 'b', 's', 'x' -> {
-            entity = new Brick(j, i, Sprite.brick.getFxImage());
-            stillObjects.add(new Grass(j, i, Sprite.grass.getFxImage()));
+          case 'f' -> {
+            entity = new Brick(j, i);
+            stillObjects.add(new Grass(j, i));
             bricks.add((Brick) entity);
-            items.add(
-                new Item(j, i,
-                    switch (line.charAt(j)) {
-                      case 'f' -> Item.Type.FLAME;
-                      case 'b' -> Item.Type.BOMB;
-                      case 's' -> Item.Type.SPEED;
-                      case 'x' -> Item.Type.PORTAL;
-                      default -> null;
-                    }
-                )
-            );
+            items.add(new FlameItem(j, i));
+          }
+          case 'b' -> {
+            entity = new Brick(j, i);
+            stillObjects.add(new Grass(j, i));
+            bricks.add((Brick) entity);
+            items.add(new BombItem(j, i));
+          }
+          case 's' -> {
+            entity = new Brick(j, i);
+            stillObjects.add(new Grass(j, i));
+            bricks.add((Brick) entity);
+            items.add(new SpeedItem(j, i));
+          }
+          case 'x' -> {
+            entity = new Brick(j, i);
+            stillObjects.add(new Grass(j, i));
+            bricks.add((Brick) entity);
+            items.add(new Portal(j, i));
           }
           case '1' -> {
-            entity = new Grass(j, i, Sprite.grass.getFxImage());
+            entity = new Grass(j, i);
             stillObjects.add(entity);
             enemies.add(new Balloom(j, i, null));
           }
           case '2' -> {
-            entity = new Grass(j, i, Sprite.grass.getFxImage());
+            entity = new Grass(j, i);
             stillObjects.add(entity);
             enemies.add(new Oneal(j, i, null));
           }
           case '3' -> {
-            entity = new Grass(j, i, Sprite.grass.getFxImage());
+            entity = new Grass(j, i);
             stillObjects.add(entity);
             enemies.add(new Kondoria(j, i, null));
           }
           case '4' -> {
-            entity = new Grass(j, i, Sprite.grass.getFxImage());
+            entity = new Grass(j, i);
             stillObjects.add(entity);
             enemies.add(new Doll(j, i, null));
           }
           case '5' -> {
-            entity = new Grass(j, i, Sprite.grass.getFxImage());
+            entity = new Grass(j, i);
             stillObjects.add(entity);
             enemies.add(new Minvo(j, i, null));
           }
           default -> {
-            entity = new Grass(j, i, Sprite.grass.getFxImage());
+            entity = new Grass(j, i);
             stillObjects.add(entity);
           }
         }

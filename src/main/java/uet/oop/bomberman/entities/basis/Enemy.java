@@ -31,12 +31,12 @@ public abstract class Enemy extends DynamicEntity {
   @Override
   public void updateImage() {
     /// Chỉ thay đổi sprite khi quay trái hoặc phải
-    if (direction == LEFT) {
-      sprites = leftSprites;
-    } else if (direction == RIGHT) {
-      sprites = rightSprites;
-    }
-    this.setImg(
+    sprites = switch (direction) {
+      case LEFT -> leftSprites;
+      case RIGHT -> rightSprites;
+      default -> sprites;
+    };
+    setImage(
         Sprite.movingSprite(
             sprites[0],
             sprites[1],
@@ -45,7 +45,7 @@ public abstract class Enemy extends DynamicEntity {
             Sprite.ANIMATION_CYCLE * 3
         ).getFxImage()
     );
-    this.move();
+    move();
   }
 
   @Override
@@ -53,6 +53,6 @@ public abstract class Enemy extends DynamicEntity {
     assert !this.dead && dead;
     this.dead = true;
     dyingCountDown = DEFAULT_DYING_COUNT_DOWN;
-    this.setImg(deadSprite.getFxImage());
+    setImage(deadSprite.getFxImage());
   }
 }

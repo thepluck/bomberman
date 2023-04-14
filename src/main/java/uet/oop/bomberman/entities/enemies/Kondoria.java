@@ -11,7 +11,7 @@ public class Kondoria extends Enemy {
     this.rightSprites = new Sprite[]{Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3};
     this.deadSprite = Sprite.kondoria_dead;
     this.sprites = leftSprites;
-    this.setImg(this.sprites[0].getFxImage());
-    this.setSpeed(minSpeed);
+    setImage(this.sprites[0].getFxImage());
+    setSpeed(minSpeed);
   }
 }

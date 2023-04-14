@@ -5,64 +5,77 @@ import uet.oop.bomberman.entities.basis.DynamicEntity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomber extends DynamicEntity {
+  public static final int DEFAULT_DYING_COUNT_DOWN = 60;
   private int bombLength = 2;
   private int bombLimit = 1;
-  public static final int DEFAULT_DYING_COUNT_DOWN = 60;
 
-  public Bomber(int xUnit, int yUnit, Image img) {
-    super(xUnit, yUnit, img);
-    this.setDirection(RIGHT);
+  public Bomber(int xUnit, int yUnit, Image image) {
+    super(xUnit, yUnit, image);
+    this.setDirection(Direction.RIGHT);
+    this.setLocked(true);
   }
 
   @Override
   public void update() {
+    updateImage();
     this.animate();
   }
 
   @Override
   public void updateImage() {
     Sprite sprite;
-    if (getDirection() == LEFT) {
-      if (isLocked()) {
-        sprite = Sprite.player_left;
-      } else {
-        sprite = Sprite.movingSprite(
-            Sprite.player_left_1, Sprite.player_left_2,
-            getAnimationStep(), Sprite.ANIMATION_CYCLE
-        );
-      }
-    } else if (getDirection() == RIGHT) {
-      if (isLocked()) {
-        sprite = Sprite.player_right;
-      } else {
-        sprite = Sprite.movingSprite(
-            Sprite.player_right_1, Sprite.player_right_2,
-            getAnimationStep(), Sprite.ANIMATION_CYCLE
-        );
-      }
-    } else if (getDirection() == UP) {
-      if (isLocked()) {
-        sprite = Sprite.player_up;
-      } else {
-        sprite = Sprite.movingSprite(
-            Sprite.player_up_1, Sprite.player_up_2,
-            getAnimationStep(), Sprite.ANIMATION_CYCLE
-        );
-      }
-    } else if (getDirection() == DOWN) {
-      if (isLocked()) {
-        sprite = Sprite.player_down;
-      } else {
-        sprite = Sprite.movingSprite(
-            Sprite.player_down_1, Sprite.player_down_2,
-            getAnimationStep(), Sprite.ANIMATION_CYCLE
-        );
-      }
+    if (isDead()) {
+      sprite = Sprite.movingSprite(
+          Sprite.player_dead1, Sprite.player_dead2,
+          Sprite.player_dead3, getAnimationStep(),
+          Sprite.ANIMATION_CYCLE);
     } else {
-      sprite = Sprite.player_right;
+      sprite = switch (direction) {
+        case UP -> {
+          if (isLocked()) {
+            yield Sprite.player_up;
+          } else {
+            yield Sprite.movingSprite(
+                Sprite.player_up, Sprite.player_up_1,
+                Sprite.player_up_2, getAnimationStep(),
+                Sprite.ANIMATION_CYCLE);
+          }
+        }
+        case DOWN -> {
+          if (isLocked()) {
+            yield Sprite.player_down;
+          } else {
+            yield Sprite.movingSprite(
+                Sprite.player_down, Sprite.player_down_1,
+                Sprite.player_down_2, getAnimationStep(),
+                Sprite.ANIMATION_CYCLE);
+          }
+        }
+        case LEFT -> {
+          if (isLocked()) {
+            yield Sprite.player_left;
+          } else {
+            yield Sprite.movingSprite(
+                Sprite.player_left, Sprite.player_left_1,
+                Sprite.player_left_2, getAnimationStep(),
+                Sprite.ANIMATION_CYCLE);
+          }
+        }
+        case RIGHT -> {
+          if (isLocked()) {
+            yield Sprite.player_right;
+          } else {
+            yield Sprite.movingSprite(
+                Sprite.player_right, Sprite.player_right_1,
+                Sprite.player_right_2, getAnimationStep(),
+                Sprite.ANIMATION_CYCLE);
+          }
+        }
+        default -> Sprite.player_right;
+      };
     }
     move();
-    setImg(sprite.getFxImage());
+    setImage(sprite.getFxImage());
   }
 
   public int getBombLength() {

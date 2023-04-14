@@ -12,13 +12,13 @@ public class Bomb extends Entity {
   private int animationStep;
   private boolean exploded;
 
-  public Bomb(int xUnit, int yUnit, Image img) {
-    super(xUnit, yUnit, img);
+  public Bomb(int xUnit, int yUnit, Image image) {
+    super(xUnit, yUnit, image);
     animationStep = 0;
   }
 
-  public Bomb(int xUnit, int yUnit, Image img, int length) {
-    super(xUnit, yUnit, img);
+  public Bomb(int xUnit, int yUnit, Image image, int length) {
+    super(xUnit, yUnit, image);
     animationStep = 0;
     this.length = length;
   }
@@ -34,7 +34,7 @@ public class Bomb extends Entity {
   @Override
   public void updateImage() {
     if (!isExploded()) {
-      setImg(
+      setImage(
         Sprite.movingSprite(
           Sprite.bomb,
           Sprite.bomb_1,
@@ -45,13 +45,13 @@ public class Bomb extends Entity {
       );
       animationStep = animationStep + 1;
       if (animationStep == TICKING_CYCLE) {
-        this.setExploded(true);
+        setExploded(true);
       }
     } else {
       if (animationStep == EXPLODING_CYCLE) {
         return;
       }
-      setImg(
+      setImage(
         Sprite.movingSprite(
           Sprite.bomb_exploded,
           Sprite.bomb_exploded1,

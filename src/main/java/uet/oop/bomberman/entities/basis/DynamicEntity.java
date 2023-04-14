@@ -3,15 +3,13 @@ package uet.oop.bomberman.entities.basis;
 import javafx.scene.image.Image;
 
 public abstract class DynamicEntity extends Entity {
+  public enum Direction {
+    UP, DOWN, LEFT, RIGHT, STAND
+  }
   public static final int MAX_STEP = 10000;
-  public static final Vector LEFT = new Vector(-1, 0);
-  public static final Vector RIGHT = new Vector(1, 0);
-  public static final Vector UP = new Vector(0, -1);
-  public static final Vector DOWN = new Vector(0, 1);
-  public static final Vector STAND = new Vector(0, 0);
   protected boolean dead;
   protected int speed;
-  protected Vector direction;
+  protected Direction direction;
   protected int dyingCountDown;
   protected int animationStep;
   protected boolean locked;
@@ -19,21 +17,37 @@ public abstract class DynamicEntity extends Entity {
   public DynamicEntity(int xUnit, int yUnit, Image image) {
     super(xUnit, yUnit, image);
     this.dead = false;
-    this.speed = 0;
-    this.direction = STAND;
+    this.speed = 4;
+    this.direction = Direction.STAND;
     this.dyingCountDown = 0;
+
   }
 
   public void move() {
-    setX(x + direction.x * speed);
-    setY(y + direction.y * speed);
+    if (isLocked()) {
+      return;
+    }
+    switch (direction) {
+      case UP -> {
+        y -= speed;
+      }
+      case DOWN -> {
+        y += speed;
+      }
+      case LEFT -> {
+        x -= speed;
+      }
+      case RIGHT -> {
+        x += speed;
+      }
+    }
   }
 
-  public Vector getDirection() {
+  public Direction getDirection() {
     return direction;
   }
 
-  public void setDirection(Vector direction) {
+  public void setDirection(Direction direction) {
     this.direction = direction;
   }
 

@@ -11,7 +11,7 @@ public class Oneal extends Enemy {
     this.rightSprites = new Sprite[]{Sprite.oneal_right1, Sprite.oneal_right2, Sprite.oneal_right3};
     this.deadSprite = Sprite.oneal_dead;
     this.sprites = leftSprites;
-    this.setImg(this.sprites[0].getFxImage());
-    this.setSpeed(minSpeed);
+    setImage(this.sprites[0].getFxImage());
+    setSpeed(minSpeed);
   }
 }
