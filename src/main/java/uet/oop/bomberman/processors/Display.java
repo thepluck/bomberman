@@ -13,14 +13,14 @@ public class Display {
   public static void render() {
     // render
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    bomber.render(gc);
-    stillObjects.forEach(g -> g.render(gc));
+    statics.forEach(g -> g.render(gc));
     entities.forEach(g -> g.render(gc));
     bombs.forEach(g -> g.render(gc));
     bricks.forEach(g -> g.render(gc));
     items.forEach(g -> g.render(gc));
     enemies.forEach(g -> g.render(gc));
     explosions.forEach(g -> g.render(gc));
+    bomber.render(gc);
   }
 
   public static void update() {

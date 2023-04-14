@@ -197,8 +197,8 @@ public class Sprite {
   private void load() {
     for (int y = 0; y < SIZE; y++) {
       for (int x = 0; x < SIZE; x++) {
-        if (x + originX < 0 || y + originY < 0) pixels[x + y * SIZE] = sheet.pixels[0];
-        else pixels[x + y * SIZE] = sheet.pixels[(x + originX) + (y + originY) * sheet.SIZE];
+        assert x + originX >= 0 && y + originY >= 0;
+        pixels[x + y * SIZE] = sheet.pixels[(x + originX) + (y + originY) * sheet.SIZE];
       }
     }
   }
