@@ -9,29 +9,9 @@ public class Explosion extends Entity {
   public static int EXPLOSION_CYCLE = EXPLOSION_TIME / 3;
   private int animationStep = 0;
   private final Sprite sprite;
-  public Explosion(int xUnit, int yUnit, Image img, Direction direction) {
-    super(xUnit, yUnit, img);
-    sprite = getSprite(direction);
-  }
-
-  @Override
-  public void update() {
-    updateImage();
-  }
-
-  boolean isFullyExploded() {
-    return animationStep == EXPLOSION_TIME;
-  }
-
-  @Override
-  public void updateImage() {
-    if (isFullyExploded()) return;
-    setImg(sprite.getFxImage());
-    animationStep++;
-  }
-
-  private Sprite getSprite(Direction direction) {
-    return switch (direction) {
+  public Explosion(int xUnit, int yUnit, Image image, Direction direction) {
+    super(xUnit, yUnit, image);
+    sprite = switch (direction) {
       case UP -> Sprite.movingSprite(
           Sprite.explosion_vertical_up_last,
           Sprite.explosion_vertical_up_last1,
@@ -69,6 +49,22 @@ public class Explosion extends Entity {
       );
       default -> null;
     };
+  }
+
+  @Override
+  public void update() {
+    updateImage();
+  }
+
+  boolean isFullyExploded() {
+    return animationStep == EXPLOSION_TIME;
+  }
+
+  @Override
+  public void updateImage() {
+    if (isFullyExploded()) return;
+    setImage(sprite.getFxImage());
+    animationStep++;
   }
 
   enum Direction {

@@ -13,6 +13,7 @@ public class Display {
   public static void render() {
     // render
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    bomber.render(gc);
     stillObjects.forEach(g -> g.render(gc));
     entities.forEach(g -> g.render(gc));
     bombs.forEach(g -> g.render(gc));

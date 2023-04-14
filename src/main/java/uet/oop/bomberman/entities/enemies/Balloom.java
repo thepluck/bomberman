@@ -11,7 +11,7 @@ public class Balloom extends Enemy {
     this.rightSprites = new Sprite[]{Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3};
     this.deadSprite = Sprite.balloom_dead;
     this.sprites = leftSprites;
-    this.setImg(this.sprites[0].getFxImage());
-    this.setSpeed(minSpeed);
+    setImage(this.sprites[0].getFxImage());
+    setSpeed(minSpeed);
   }
 }

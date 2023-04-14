@@ -2,11 +2,14 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import uet.oop.bomberman.entities.basis.DynamicEntity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Map;
 import uet.oop.bomberman.processors.Display;
@@ -42,6 +45,41 @@ public class BombermanGame extends Application {
     // Tao scene
     scene = new Scene(root);
     stage.setTitle("Bomberman Game");
+
+    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+          case UP -> {
+            Map.bomber.setLocked(false);
+            Map.bomber.setDirection(DynamicEntity.Direction.UP);
+          }
+          case DOWN -> {
+            Map.bomber.setLocked(false);
+            Map.bomber.setDirection(DynamicEntity.Direction.DOWN);
+          }
+          case LEFT -> {
+            Map.bomber.setLocked(false);
+            Map.bomber.setDirection(DynamicEntity.Direction.LEFT);
+          }
+          case RIGHT -> {
+            Map.bomber.setLocked(false);
+            Map.bomber.setDirection(DynamicEntity.Direction.RIGHT);
+          }
+        }
+      }
+    });
+
+    scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+          case UP, DOWN, LEFT, RIGHT -> {
+            Map.bomber.setLocked(true);
+          }
+        }
+      }
+    });
 
     // Them scene vao stage
     stage.setScene(scene);

@@ -11,7 +11,7 @@ public class Doll extends Enemy {
     this.rightSprites = new Sprite[]{Sprite.doll_right1, Sprite.doll_right2, Sprite.doll_right3};
     this.deadSprite = Sprite.doll_dead;
     this.sprites = leftSprites;
-    this.setImg(this.sprites[0].getFxImage());
-    this.setSpeed(minSpeed);
+    setImage(this.sprites[0].getFxImage());
+    setSpeed(minSpeed);
   }
 }

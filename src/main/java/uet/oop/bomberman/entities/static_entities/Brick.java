@@ -7,8 +7,8 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Brick extends Entity {
   private boolean destroyed;
   private int animationStep;
-  public Brick(int x, int y, Image img) {
-    super(x, y, img);
+  public Brick(int x, int y) {
+    super(x, y, Sprite.brick.getFxImage());
     destroyed = false;
   }
 
@@ -47,7 +47,7 @@ public class Brick extends Entity {
   public void updateImage() {
     if (isFullyDestroyed()) return;
     if (isDestroyed()) {
-      this.setImg(
+      this.setImage(
         Sprite.movingSprite(
           Sprite.brick_exploded,
           Sprite.brick_exploded1,

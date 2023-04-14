@@ -11,7 +11,7 @@ public class Minvo extends Enemy {
     this.rightSprites = new Sprite[]{Sprite.minvo_right1, Sprite.minvo_right2, Sprite.minvo_right3};
     this.deadSprite = Sprite.minvo_dead;
     this.sprites = leftSprites;
-    this.setImg(this.sprites[0].getFxImage());
-    this.setSpeed(minSpeed);
+    setImage(this.sprites[0].getFxImage());
+    setSpeed(minSpeed);
   }
 }
