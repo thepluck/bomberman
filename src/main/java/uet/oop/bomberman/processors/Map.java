@@ -37,14 +37,14 @@ public class Map {
   public static List<Explosion> explosions = new ArrayList<>();
   public static List<Item> items = new ArrayList<>();
   public static List<Enemy> enemies = new ArrayList<>();
-  public static Entity[][] map = new Entity[numCol][numRow];
+  public static Entity[][] entityMap = new Entity[numCol][numRow];
 
   public static Entity getEntity(int x, int y) {
-    return map[x][y];
+    return x < numCol && y < numRow ? entityMap[x][y] : null;
   }
 
   public static void setEntity(int x, int y, Entity entity) {
-    map[x][y] = entity;
+    entityMap[x][y] = entity;
   }
 
   public static void reset() {
