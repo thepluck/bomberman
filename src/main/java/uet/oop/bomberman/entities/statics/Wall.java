@@ -1,6 +1,5 @@
-package uet.oop.bomberman.entities.static_entities;
+package uet.oop.bomberman.entities.statics;
 
-import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.basis.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 

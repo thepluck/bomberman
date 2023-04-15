@@ -1,6 +1,10 @@
 package uet.oop.bomberman.entities.basis;
 
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.statics.Grass;
+import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.processors.Map;
+import uet.oop.bomberman.processors.Library;
 
 public abstract class DynamicEntity extends Entity {
   public enum Direction {
@@ -27,19 +31,27 @@ public abstract class DynamicEntity extends Entity {
     if (isLocked()) {
       return;
     }
+    int newX = x, newY = y;
     switch (direction) {
-      case UP -> {
-        y -= speed;
+      case UP -> newY -= speed;
+      case DOWN ->newY += speed;
+      case LEFT -> newX -= speed;
+      case RIGHT -> newX += speed;
+    }
+    boolean canMove = true;
+    for (int shiftX = 0; shiftX <= 1; shiftX++)
+      for (int shiftY = 0; shiftY <= 1; shiftY++) {
+        int gridX = newX / Sprite.SCALED_SIZE + shiftX;
+        int gridY = newY / Sprite.SCALED_SIZE + shiftY;
+        if (Library.isIntersecting(newX, newY,
+            gridX * Sprite.SCALED_SIZE,
+            gridY * Sprite.SCALED_SIZE)
+            && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
+          canMove = false;
+        }
       }
-      case DOWN -> {
-        y += speed;
-      }
-      case LEFT -> {
-        x -= speed;
-      }
-      case RIGHT -> {
-        x += speed;
-      }
+    if (canMove) {
+      x = newX; y = newY;
     }
   }
 
