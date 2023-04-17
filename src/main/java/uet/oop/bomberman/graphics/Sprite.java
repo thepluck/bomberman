@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class Sprite {
 
   public static final int DEFAULT_SIZE = 16;
-  public static final int SCALED_SIZE = DEFAULT_SIZE * 2;
+  public static final int SCALED_SIZE = DEFAULT_SIZE * 3;
 
   public static final int ANIMATION_CYCLE = 20;
   private static final int TRANSPARENT_COLOR = 0xffff00ff;
@@ -28,21 +28,21 @@ public class Sprite {
   | Bomber Sprites
   |--------------------------------------------------------------------------
    */
-  public static Sprite player_up = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.tiles, 12, 16);
-  public static Sprite player_down = new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.tiles, 12, 15);
-  public static Sprite player_left = new Sprite(DEFAULT_SIZE, 3, 0, SpriteSheet.tiles, 10, 15);
-  public static Sprite player_right = new Sprite(DEFAULT_SIZE, 1, 0, SpriteSheet.tiles, 10, 16);
-  public static Sprite player_up_1 = new Sprite(DEFAULT_SIZE, 0, 1, SpriteSheet.tiles, 12, 16);
-  public static Sprite player_up_2 = new Sprite(DEFAULT_SIZE, 0, 2, SpriteSheet.tiles, 12, 15);
-  public static Sprite player_down_1 = new Sprite(DEFAULT_SIZE, 2, 1, SpriteSheet.tiles, 12, 15);
-  public static Sprite player_down_2 = new Sprite(DEFAULT_SIZE, 2, 2, SpriteSheet.tiles, 12, 16);
-  public static Sprite player_left_1 = new Sprite(DEFAULT_SIZE, 3, 1, SpriteSheet.tiles, 11, 16);
-  public static Sprite player_left_2 = new Sprite(DEFAULT_SIZE, 3, 2, SpriteSheet.tiles, 12, 16);
-  public static Sprite player_right_1 = new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.tiles, 11, 16);
-  public static Sprite player_right_2 = new Sprite(DEFAULT_SIZE, 1, 2, SpriteSheet.tiles, 12, 16);
-  public static Sprite player_dead1 = new Sprite(DEFAULT_SIZE, 4, 2, SpriteSheet.tiles, 14, 16);
-  public static Sprite player_dead2 = new Sprite(DEFAULT_SIZE, 5, 2, SpriteSheet.tiles, 13, 15);
-  public static Sprite player_dead3 = new Sprite(DEFAULT_SIZE, 6, 2, SpriteSheet.tiles, 16, 16);
+  public static Sprite player_up = new Sprite(DEFAULT_SIZE, 0, 0, SpriteSheet.tiles, 12, 16, -2, 0);
+  public static Sprite player_down = new Sprite(DEFAULT_SIZE, 2, 0, SpriteSheet.tiles, 12, 15, -2, 0);
+  public static Sprite player_left = new Sprite(DEFAULT_SIZE, 3, 0, SpriteSheet.tiles, 10, 15, -2, 0);
+  public static Sprite player_right = new Sprite(DEFAULT_SIZE, 1, 0, SpriteSheet.tiles, 10, 16, -2, 0);
+  public static Sprite player_up_1 = new Sprite(DEFAULT_SIZE, 0, 1, SpriteSheet.tiles, 12, 16, -2, 0);
+  public static Sprite player_up_2 = new Sprite(DEFAULT_SIZE, 0, 2, SpriteSheet.tiles, 12, 15, -2, 0);
+  public static Sprite player_down_1 = new Sprite(DEFAULT_SIZE, 2, 1, SpriteSheet.tiles, 12, 15, -2, 0);
+  public static Sprite player_down_2 = new Sprite(DEFAULT_SIZE, 2, 2, SpriteSheet.tiles, 12, 16, -2, 0);
+  public static Sprite player_left_1 = new Sprite(DEFAULT_SIZE, 3, 1, SpriteSheet.tiles, 11, 16, -2, 0);
+  public static Sprite player_left_2 = new Sprite(DEFAULT_SIZE, 3, 2, SpriteSheet.tiles, 12, 16, -2, 0);
+  public static Sprite player_right_1 = new Sprite(DEFAULT_SIZE, 1, 1, SpriteSheet.tiles, 11, 16, -2, 0);
+  public static Sprite player_right_2 = new Sprite(DEFAULT_SIZE, 1, 2, SpriteSheet.tiles, 12, 16, -2, 0);
+  public static Sprite player_dead1 = new Sprite(DEFAULT_SIZE, 4, 2, SpriteSheet.tiles, 14, 16, -2, 0);
+  public static Sprite player_dead2 = new Sprite(DEFAULT_SIZE, 5, 2, SpriteSheet.tiles, 13, 15, -2, 0);
+  public static Sprite player_dead3 = new Sprite(DEFAULT_SIZE, 6, 2, SpriteSheet.tiles, 16, 16, -2, 0);
   /*
   |--------------------------------------------------------------------------
   | Character
@@ -153,11 +153,25 @@ public class Sprite {
   private int originX, originY;
   private SpriteSheet sheet;
 
-  public Sprite(int SIZE, int originX, int originY, SpriteSheet sheet, int realWidth, int realHeight) {
+  public Sprite(int SIZE, int originX, int originY,
+                SpriteSheet sheet, int realWidth, int realHeight) {
     this.SIZE = SIZE;
     pixels = new int[SIZE * SIZE];
     this.originX = originX * SIZE;
     this.originY = originY * SIZE;
+    this.sheet = sheet;
+    this.realWidth = realWidth;
+    this.realHeight = realHeight;
+    load();
+  }
+
+  public Sprite(int SIZE, int originX, int originY,
+                SpriteSheet sheet, int realWidth,
+                int realHeight, int offsetX, int offsetY) {
+    this.SIZE = SIZE;
+    pixels = new int[SIZE * SIZE];
+    this.originX = originX * SIZE + offsetX;
+    this.originY = originY * SIZE + offsetY;
     this.sheet = sheet;
     this.realWidth = realWidth;
     this.realHeight = realHeight;
@@ -198,7 +212,7 @@ public class Sprite {
     for (int y = 0; y < SIZE; y++) {
       for (int x = 0; x < SIZE; x++) {
         assert x + originX >= 0 && y + originY >= 0;
-        pixels[x + y * SIZE] = sheet.pixels[(x + originX) + (y + originY) * sheet.SIZE];
+        pixels[x + y * SIZE] = sheet.pixels[Math.max(x + originX, 0) + Math.max(y + originY, 0) * sheet.SIZE];
       }
     }
   }
@@ -224,13 +238,13 @@ public class Sprite {
       }
     }
     Image input = new ImageView(wr).getImage();
-    return resample(input, SCALED_SIZE / DEFAULT_SIZE);
+    return resample(input);
   }
 
-  private Image resample(Image input, int scaleFactor) {
+  private Image resample(Image input) {
     final int W = (int) input.getWidth();
     final int H = (int) input.getHeight();
-    final int S = scaleFactor;
+    final int S = 3;
 
     WritableImage output = new WritableImage(
         W * S,

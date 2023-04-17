@@ -1,15 +1,18 @@
 package uet.oop.bomberman.processors;
 
 
-import static uet.oop.bomberman.BombermanGame.canvas;
-import static uet.oop.bomberman.BombermanGame.gc;
-import static uet.oop.bomberman.processors.Map.*;
-
 import uet.oop.bomberman.entities.basis.Entity;
 
 import java.util.ConcurrentModificationException;
 
+import static uet.oop.bomberman.BombermanGame.canvas;
+import static uet.oop.bomberman.BombermanGame.gc;
+import static uet.oop.bomberman.processors.Map.*;
+
 public class Display {
+  /**
+   * Render all entities.
+   */
   public static void render() {
     // render
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());

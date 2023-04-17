@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
 public abstract class Enemy extends DynamicEntity {
+  public static final int DEFAULT_DYING_COUNT_DOWN = 40;
   protected int minSpeed;
   protected int maxSpeed;
   protected int speedChangeCountDown;
@@ -11,9 +12,7 @@ public abstract class Enemy extends DynamicEntity {
   protected Sprite[] leftSprites = new Sprite[3];
   protected Sprite[] rightSprites = new Sprite[3];
   protected Sprite[] sprites = new Sprite[3];
-
   protected Sprite deadSprite;
-  public static final int DEFAULT_DYING_COUNT_DOWN = 40;
 
   public Enemy(int xUnit, int yUnit, Image image, int minSpeed, int maxSpeed) {
     super(xUnit, yUnit, image);

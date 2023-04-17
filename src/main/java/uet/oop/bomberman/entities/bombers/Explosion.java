@@ -7,8 +7,9 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Explosion extends Entity {
   public static int EXPLOSION_TIME = 20;
   public static int EXPLOSION_CYCLE = EXPLOSION_TIME / 3;
-  private int animationStep = 0;
   private final Sprite sprite;
+  private int animationStep = 0;
+
   public Explosion(int xUnit, int yUnit, Image image, Direction direction) {
     super(xUnit, yUnit, image);
     sprite = switch (direction) {

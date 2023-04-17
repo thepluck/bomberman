@@ -6,6 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Brick extends Entity {
   private boolean destroyed;
   private int animationStep;
+
   public Brick(int x, int y) {
     super(x, y, Sprite.brick.getFxImage());
     destroyed = false;
@@ -13,14 +14,6 @@ public class Brick extends Entity {
 
   public boolean isDestroyed() {
     return destroyed;
-  }
-
-  public int getAnimationStep() {
-    return animationStep;
-  }
-
-  public void setAnimationStep(int animationStep) {
-    this.animationStep = animationStep;
   }
 
   public void setDestroyed(boolean destroyed) {
@@ -31,6 +24,14 @@ public class Brick extends Entity {
     if (destroyed) {
       setAnimationStep(Sprite.ANIMATION_CYCLE);
     }
+  }
+
+  public int getAnimationStep() {
+    return animationStep;
+  }
+
+  public void setAnimationStep(int animationStep) {
+    this.animationStep = animationStep;
   }
 
   public boolean isFullyDestroyed() {
@@ -47,13 +48,13 @@ public class Brick extends Entity {
     if (isFullyDestroyed()) return;
     if (isDestroyed()) {
       this.setImage(
-        Sprite.movingSprite(
-          Sprite.brick_exploded,
-          Sprite.brick_exploded1,
-          Sprite.brick_exploded2,
-          animationStep,
-          Sprite.ANIMATION_CYCLE
-        ).getFxImage()
+          Sprite.movingSprite(
+              Sprite.brick_exploded,
+              Sprite.brick_exploded1,
+              Sprite.brick_exploded2,
+              animationStep,
+              Sprite.ANIMATION_CYCLE
+          ).getFxImage()
       );
       animationStep--;
     }

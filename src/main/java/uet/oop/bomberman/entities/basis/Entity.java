@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
-public abstract class Entity{
+public abstract class Entity {
   protected int x;
   protected int y;
   protected Image image;

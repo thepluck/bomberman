@@ -3,13 +3,10 @@ package uet.oop.bomberman.entities.basis;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.statics.Grass;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.processors.Map;
 import uet.oop.bomberman.processors.Library;
+import uet.oop.bomberman.processors.Map;
 
 public abstract class DynamicEntity extends Entity {
-  public enum Direction {
-    UP, DOWN, LEFT, RIGHT, STAND
-  }
   public static final int MAX_STEP = 10000;
   protected boolean dead;
   protected int speed;
@@ -17,11 +14,10 @@ public abstract class DynamicEntity extends Entity {
   protected int dyingCountDown;
   protected int animationStep;
   protected boolean locked;
-
   public DynamicEntity(int xUnit, int yUnit, Image image) {
     super(xUnit, yUnit, image);
     this.dead = false;
-    this.speed = 4;
+    this.speed = 6;
     this.direction = Direction.STAND;
     this.dyingCountDown = 0;
 
@@ -34,7 +30,7 @@ public abstract class DynamicEntity extends Entity {
     int newX = x, newY = y;
     switch (direction) {
       case UP -> newY -= speed;
-      case DOWN ->newY += speed;
+      case DOWN -> newY += speed;
       case LEFT -> newX -= speed;
       case RIGHT -> newX += speed;
     }
@@ -51,7 +47,8 @@ public abstract class DynamicEntity extends Entity {
         }
       }
     if (canMove) {
-      x = newX; y = newY;
+      x = newX;
+      y = newY;
     }
   }
 
@@ -114,5 +111,9 @@ public abstract class DynamicEntity extends Entity {
 
   public boolean isFullyDead() {
     return dead && dyingCountDown == 0;
+  }
+
+  public enum Direction {
+    UP, DOWN, LEFT, RIGHT, STAND
   }
 }
