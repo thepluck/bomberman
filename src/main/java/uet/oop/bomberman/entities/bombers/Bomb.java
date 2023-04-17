@@ -1,7 +1,7 @@
 package uet.oop.bomberman.entities.bombers;
 
-import uet.oop.bomberman.entities.basis.Entity;
 import javafx.scene.image.Image;
+import uet.oop.bomberman.entities.basis.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Bomb extends Entity {
@@ -35,13 +35,13 @@ public class Bomb extends Entity {
   public void updateImage() {
     if (!isExploded()) {
       setImage(
-        Sprite.movingSprite(
-          Sprite.bomb,
-          Sprite.bomb_1,
-          Sprite.bomb_2,
-          animationStep,
-          Sprite.ANIMATION_CYCLE
-        ).getFxImage()
+          Sprite.movingSprite(
+              Sprite.bomb,
+              Sprite.bomb_1,
+              Sprite.bomb_2,
+              animationStep,
+              Sprite.ANIMATION_CYCLE
+          ).getFxImage()
       );
       animationStep = animationStep + 1;
       if (animationStep == TICKING_CYCLE) {
@@ -52,13 +52,13 @@ public class Bomb extends Entity {
         return;
       }
       setImage(
-        Sprite.movingSprite(
-          Sprite.bomb_exploded,
-          Sprite.bomb_exploded1,
-          Sprite.bomb_exploded2,
-          animationStep,
-          Sprite.ANIMATION_CYCLE
-        ).getFxImage()
+          Sprite.movingSprite(
+              Sprite.bomb_exploded,
+              Sprite.bomb_exploded1,
+              Sprite.bomb_exploded2,
+              animationStep,
+              Sprite.ANIMATION_CYCLE
+          ).getFxImage()
       );
       animationStep = animationStep + 1;
     }

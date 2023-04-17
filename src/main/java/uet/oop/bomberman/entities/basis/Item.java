@@ -1,8 +1,5 @@
 package uet.oop.bomberman.entities.basis;
 
-import uet.oop.bomberman.entities.basis.Entity;
-import uet.oop.bomberman.graphics.Sprite;
-
 import javafx.scene.image.Image;
 
 public abstract class Item extends Entity {

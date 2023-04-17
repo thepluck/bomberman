@@ -9,8 +9,10 @@ public class SpeedItem extends Item {
   }
 
   @Override
-  public void update() {}
+  public void update() {
+  }
 
   @Override
-  public void updateImage() {}
+  public void updateImage() {
+  }
 }
