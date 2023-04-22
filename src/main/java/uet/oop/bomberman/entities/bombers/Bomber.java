@@ -8,6 +8,7 @@ public class Bomber extends DynamicEntity {
   public static final int DEFAULT_DYING_COUNT_DOWN = 60;
   private int bombLength = 2;
   private int bombLimit = 1;
+  public static final int SPEED_LIMIT = 12;
 
   public Bomber(int xUnit, int yUnit, Image image) {
     super(xUnit, yUnit, image);
@@ -92,6 +93,16 @@ public class Bomber extends DynamicEntity {
 
   public void setBombLimit(int bombLimit) {
     this.bombLimit = bombLimit;
+  }
+
+  public void increaseSpeed() {
+    if (speed < SPEED_LIMIT) {
+      speed++;
+    }
+  }
+
+  public void increaseBombLimit() {
+    bombLimit++;
   }
 
   @Override

@@ -6,7 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Balloom extends Enemy {
   public Balloom(int xUnit, int yUnit, Image image) {
-    super(xUnit, yUnit, image, 1, 1);
+    super(xUnit, yUnit, image, 1, 2);
     this.leftSprites = new Sprite[]{Sprite.balloom_left1, Sprite.balloom_left2, Sprite.balloom_left3};
     this.rightSprites = new Sprite[]{Sprite.balloom_right1, Sprite.balloom_right2, Sprite.balloom_right3};
     this.deadSprite = Sprite.balloom_dead;

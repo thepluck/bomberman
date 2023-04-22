@@ -2,12 +2,14 @@ package uet.oop.bomberman.entities.basis;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.statics.Grass;
+import uet.oop.bomberman.entities.statics.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Library;
 import uet.oop.bomberman.processors.Map;
 
 public abstract class DynamicEntity extends Entity {
   public static final int MAX_STEP = 10000;
+  public static final int DEFAULT_SPEED = 4;
   protected boolean dead;
   protected int speed;
   protected Direction direction;
@@ -17,7 +19,7 @@ public abstract class DynamicEntity extends Entity {
   public DynamicEntity(int xUnit, int yUnit, Image image) {
     super(xUnit, yUnit, image);
     this.dead = false;
-    this.speed = 6;
+    this.speed = DEFAULT_SPEED;
     this.direction = Direction.STAND;
     this.dyingCountDown = 0;
 
@@ -27,29 +29,83 @@ public abstract class DynamicEntity extends Entity {
     if (isLocked()) {
       return;
     }
-    int newX = x, newY = y;
+    /// Calculate the max distance that the entity can move
+    int maxMoveable = speed;
     switch (direction) {
-      case UP -> newY -= speed;
-      case DOWN -> newY += speed;
-      case LEFT -> newX -= speed;
-      case RIGHT -> newX += speed;
-    }
-    boolean canMove = true;
-    for (int shiftX = 0; shiftX <= 1; shiftX++)
-      for (int shiftY = 0; shiftY <= 1; shiftY++) {
-        int gridX = newX / Sprite.SCALED_SIZE + shiftX;
-        int gridY = newY / Sprite.SCALED_SIZE + shiftY;
-        if (Library.isIntersecting(newX, newY,
-            gridX * Sprite.SCALED_SIZE,
-            gridY * Sprite.SCALED_SIZE)
-            && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
-          canMove = false;
+      case UP-> {
+        for (int shiftY = -1; shiftY <= 0; shiftY++) {
+          for (int shiftX = -1; shiftX <= 1; shiftX++) {
+            int gridX = x / Sprite.SCALED_SIZE + shiftX;
+            int gridY = y / Sprite.SCALED_SIZE + shiftY;
+            if (!Library.isInside(gridX, gridY)) {
+              continue;
+            }
+            if (Library.getIntersection(x, gridX * Sprite.SCALED_SIZE) > 0
+                && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
+              maxMoveable = Math.min(maxMoveable,
+                  -Library.getIntersection(y, gridY * Sprite.SCALED_SIZE));
+            }
+          }
         }
       }
-    if (canMove) {
-      x = newX;
-      y = newY;
+      case DOWN -> {
+        for (int shiftY = 1; shiftY <= 2; shiftY++) {
+          for (int shiftX = -1; shiftX <= 1; shiftX++) {
+            int gridX = x / Sprite.SCALED_SIZE + shiftX;
+            int gridY = y / Sprite.SCALED_SIZE + shiftY;
+            if (!Library.isInside(gridX, gridY)) {
+              continue;
+            }
+            if (Library.getIntersection(x, gridX * Sprite.SCALED_SIZE) > 0
+                && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
+              maxMoveable = Math.min(maxMoveable,
+                  -Library.getIntersection(y, gridY * Sprite.SCALED_SIZE));
+            }
+          }
+        }
+      }
+      case LEFT -> {
+        for (int shiftX = -1; shiftX <= 0; shiftX++) {
+          for (int shiftY = -1; shiftY <= 1; shiftY++) {
+            int gridX = x / Sprite.SCALED_SIZE + shiftX;
+            int gridY = y / Sprite.SCALED_SIZE + shiftY;
+            if (!Library.isInside(gridX, gridY)) {
+              continue;
+            }
+            if (Library.getIntersection(y, gridY * Sprite.SCALED_SIZE) > 0
+                && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
+              maxMoveable = Math.min(maxMoveable,
+                  -Library.getIntersection(x, gridX * Sprite.SCALED_SIZE));
+            }
+          }
+        }
+      }
+      case RIGHT -> {
+        for (int shiftX = 1; shiftX <= 2; shiftX++) {
+          for (int shiftY = -1; shiftY <= 1; shiftY++) {
+            int gridX = x / Sprite.SCALED_SIZE + shiftX;
+            int gridY = y / Sprite.SCALED_SIZE + shiftY;
+            if (!Library.isInside(gridX, gridY)) {
+              continue;
+            }
+            if (Library.getIntersection(y, gridY * Sprite.SCALED_SIZE) > 0
+                && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
+              maxMoveable = Math.min(maxMoveable,
+                  -Library.getIntersection(x, gridX * Sprite.SCALED_SIZE));
+            }
+          }
+        }
+      }
     }
+    assert maxMoveable >= 0;
+    switch (direction) {
+      case UP -> y -= maxMoveable;
+      case DOWN -> y += maxMoveable;
+      case LEFT -> x -= maxMoveable;
+      case RIGHT -> x += maxMoveable;
+    }
+/*    System.err.println(Map.getEntity((x + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE,
+        (y + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE).getClass().getName());*/
   }
 
   public Direction getDirection() {
