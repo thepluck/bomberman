@@ -25,9 +25,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Map {
-  public static int level = 1;
-  public static int numRow = 105;
-  public static int numCol = 105;
+  public static int height = 105;
+  public static int width = 105;
 
   public static Bomber bomber;
   public static List<DynamicEntity> entities = new ArrayList<>();
@@ -37,10 +36,10 @@ public class Map {
   public static List<Explosion> explosions = new ArrayList<>();
   public static List<Item> items = new ArrayList<>();
   public static List<Enemy> enemies = new ArrayList<>();
-  public static Entity[][] entityMap = new Entity[numCol][numRow];
+  public static Entity[][] entityMap = new Entity[width][height];
 
   public static Entity getEntity(int x, int y) {
-    return x < numCol && y < numRow ? entityMap[x][y] : null;
+    return x < width && y < height ? entityMap[x][y] : null;
   }
 
   public static void setEntity(int x, int y, Entity entity) {
@@ -58,7 +57,7 @@ public class Map {
     enemies.clear();
   }
 
-  public static void readMap() {
+  public static void readMap(int level) {
     Scanner scanner;
     try {
       scanner = new Scanner(new File("res/levels/Level" + level + ".txt"));
@@ -69,14 +68,14 @@ public class Map {
 
     reset();
 
-    numRow = scanner.nextInt();
-    numCol = scanner.nextInt();
+    height = scanner.nextInt();
+    width = scanner.nextInt();
 
     scanner.nextLine();
 
-    for (int i = 0; i < numRow; i++) {
+    for (int i = 0; i < height; i++) {
       String line = scanner.nextLine();
-      for (int j = 0; j < numCol; j++) {
+      for (int j = 0; j < width; j++) {
         Entity entity;
         switch (line.charAt(j)) {
           case '#' -> {
@@ -152,5 +151,12 @@ public class Map {
       }
     }
     scanner.close();
+/*    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        Entity entity = getEntity(i, j);
+        System.err.print(entity.getClass().getSimpleName() + " ");
+      }
+      System.err.println();
+    }*/
   }
 }

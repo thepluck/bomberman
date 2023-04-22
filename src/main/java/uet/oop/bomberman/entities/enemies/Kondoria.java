@@ -6,7 +6,7 @@ import uet.oop.bomberman.graphics.Sprite;
 
 public class Kondoria extends Enemy {
   public Kondoria(int xUnit, int yUnit, Image image) {
-    super(xUnit, yUnit, image, 1, 1);
+    super(xUnit, yUnit, image, 1, 2);
     this.leftSprites = new Sprite[]{Sprite.kondoria_left1, Sprite.kondoria_left2, Sprite.kondoria_left3};
     this.rightSprites = new Sprite[]{Sprite.kondoria_right1, Sprite.kondoria_right2, Sprite.kondoria_right3};
     this.deadSprite = Sprite.kondoria_dead;
