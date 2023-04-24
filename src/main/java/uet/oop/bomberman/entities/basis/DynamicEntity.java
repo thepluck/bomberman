@@ -26,13 +26,38 @@ public abstract class DynamicEntity extends Entity {
   }
 
   public void move() {
-    if (isLocked()) {
-      return;
-    }
-    /// Calculate the max distance that the entity can move
-    int maxMoveable = speed;
+    int maxMovable = getMaxMovable(direction);
     switch (direction) {
-      case UP-> {
+      case UP -> y -= maxMovable;
+      case DOWN -> y += maxMovable;
+      case LEFT -> x -= maxMovable;
+      case RIGHT -> x += maxMovable;
+    }
+  }
+
+  public int getNewX(Direction direction) {
+    return switch (direction) {
+      case RIGHT -> x + getMaxMovable(direction);
+      case LEFT -> x - getMaxMovable(direction);
+      default -> x;
+    };
+  }
+  
+  public int getNewY(Direction direction) {
+    return switch (direction) {
+      case UP -> y - getMaxMovable(direction);
+      case DOWN -> y + getMaxMovable(direction);
+      default -> y;
+    };
+  }
+
+  public int getMaxMovable(Direction direction) {
+    if (isLocked()) {
+      return 0;
+    }
+    int maxMovable = speed;
+    switch (direction) {
+      case UP -> {
         for (int shiftY = -1; shiftY <= 0; shiftY++) {
           for (int shiftX = -1; shiftX <= 1; shiftX++) {
             int gridX = x / Sprite.SCALED_SIZE + shiftX;
@@ -42,7 +67,7 @@ public abstract class DynamicEntity extends Entity {
             }
             if (Library.getIntersection(x, gridX * Sprite.SCALED_SIZE) > 0
                 && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
-              maxMoveable = Math.min(maxMoveable,
+              maxMovable = Math.min(maxMovable,
                   -Library.getIntersection(y, gridY * Sprite.SCALED_SIZE));
             }
           }
@@ -58,7 +83,7 @@ public abstract class DynamicEntity extends Entity {
             }
             if (Library.getIntersection(x, gridX * Sprite.SCALED_SIZE) > 0
                 && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
-              maxMoveable = Math.min(maxMoveable,
+              maxMovable = Math.min(maxMovable,
                   -Library.getIntersection(y, gridY * Sprite.SCALED_SIZE));
             }
           }
@@ -74,7 +99,7 @@ public abstract class DynamicEntity extends Entity {
             }
             if (Library.getIntersection(y, gridY * Sprite.SCALED_SIZE) > 0
                 && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
-              maxMoveable = Math.min(maxMoveable,
+              maxMovable = Math.min(maxMovable,
                   -Library.getIntersection(x, gridX * Sprite.SCALED_SIZE));
             }
           }
@@ -90,22 +115,15 @@ public abstract class DynamicEntity extends Entity {
             }
             if (Library.getIntersection(y, gridY * Sprite.SCALED_SIZE) > 0
                 && !(Map.getEntity(gridX, gridY) instanceof Grass)) {
-              maxMoveable = Math.min(maxMoveable,
+              maxMovable = Math.min(maxMovable,
                   -Library.getIntersection(x, gridX * Sprite.SCALED_SIZE));
             }
           }
         }
       }
     }
-    assert maxMoveable >= 0;
-    switch (direction) {
-      case UP -> y -= maxMoveable;
-      case DOWN -> y += maxMoveable;
-      case LEFT -> x -= maxMoveable;
-      case RIGHT -> x += maxMoveable;
-    }
-/*    System.err.println(Map.getEntity((x + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE,
-        (y + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE).getClass().getName());*/
+    assert maxMovable >= 0;
+    return maxMovable;
   }
 
   public Direction getDirection() {

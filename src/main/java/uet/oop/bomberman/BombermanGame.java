@@ -14,17 +14,21 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.basis.DynamicEntity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Display;
+import uet.oop.bomberman.processors.Library;
 import uet.oop.bomberman.processors.Map;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BombermanGame extends Application {
+  public static final int DEFAULT_BFS_COUNTDOWN = 30;
+
   public static GraphicsContext gc;
   public static Canvas canvas;
   public static Scene scene;
   public static Pane root;
   public static Stage stage;
   public static AnimationTimer timer;
+  public static int bfsCountDown = DEFAULT_BFS_COUNTDOWN;
 
   public static void main(String[] args) {
     Application.launch(BombermanGame.class);
@@ -104,6 +108,12 @@ public class BombermanGame extends Application {
     timer = new AnimationTimer() {
       @Override
       public void handle(long now) {
+        if (bfsCountDown > 0) {
+          bfsCountDown--;
+        } else {
+          bfsCountDown = DEFAULT_BFS_COUNTDOWN;
+          Library.breathFirstSearch(Map.bomber.getGridX(), Map.bomber.getGridY());
+        }
         Display.render();
         Display.update();
       }

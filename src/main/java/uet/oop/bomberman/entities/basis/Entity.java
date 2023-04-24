@@ -24,6 +24,14 @@ public abstract class Entity {
     this.x = x;
   }
 
+  public int getGridX() {
+    return (x + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
+  }
+
+  public int getGridY() {
+    return (y + Sprite.SCALED_SIZE / 2) / Sprite.SCALED_SIZE;
+  }
+
   public int getY() {
     return y;
   }

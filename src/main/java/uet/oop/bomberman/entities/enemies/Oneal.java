@@ -14,4 +14,9 @@ public class Oneal extends Enemy {
     setImage(this.sprites[0].getFxImage());
     setSpeed(minSpeed);
   }
+
+  @Override
+  public Direction getBestDirection() {
+    return getRandomDirection();
+  }
 }
