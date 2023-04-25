@@ -20,7 +20,7 @@ import uet.oop.bomberman.processors.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BombermanGame extends Application {
-  public static final int DEFAULT_BFS_COUNTDOWN = 30;
+  public static final int DEFAULT_BFS_COUNTDOWN = 0;
 
   public static GraphicsContext gc;
   public static Canvas canvas;

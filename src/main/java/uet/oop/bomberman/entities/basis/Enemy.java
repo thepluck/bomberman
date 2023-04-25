@@ -3,6 +3,9 @@ package uet.oop.bomberman.entities.basis;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public abstract class Enemy extends DynamicEntity {
@@ -11,8 +14,8 @@ public abstract class Enemy extends DynamicEntity {
   public static final int DEFAULT_DIRECTION_CHANGE_COUNT_DOWN = 100;
   protected int minSpeed;
   protected int maxSpeed;
-  protected int speedChangeCountDown = DEFAULT_SPEED_CHANGE_COUNT_DOWN;
-  protected int directionChangeCountDown = DEFAULT_DIRECTION_CHANGE_COUNT_DOWN;
+  protected int speedChangeCountDown = 0;
+  protected int directionChangeCountDown = 0;
   protected Sprite[] leftSprites = new Sprite[3];
   protected Sprite[] rightSprites = new Sprite[3];
   protected Sprite[] sprites = new Sprite[3];
@@ -51,12 +54,16 @@ public abstract class Enemy extends DynamicEntity {
   }
 
   public void updateDirection() {
+    updateDirectionChangeCountDown();
+    direction = getRandomDirection();
+  }
+
+  public void updateDirectionChangeCountDown() {
     if (directionChangeCountDown > 0) {
       directionChangeCountDown--;
-      return;
+    } else {
+      directionChangeCountDown = DEFAULT_DIRECTION_CHANGE_COUNT_DOWN;
     }
-    directionChangeCountDown = DEFAULT_DIRECTION_CHANGE_COUNT_DOWN;
-    direction = getBestDirection();
   }
 
   // TO DO: xử lý hình ảnh
@@ -88,16 +95,18 @@ public abstract class Enemy extends DynamicEntity {
     setImage(deadSprite.getFxImage());
   }
 
-  public abstract Direction getBestDirection();
-
   public Direction getRandomDirection() {
-    int randomInt = random.nextInt(4);
-    return switch (randomInt) {
-      case 0 -> Direction.UP;
-      case 1 -> Direction.DOWN;
-      case 2 -> Direction.LEFT;
-      case 3 -> Direction.RIGHT;
-      default -> Direction.STAND;
-    };
+    if (directionChangeCountDown != DEFAULT_DIRECTION_CHANGE_COUNT_DOWN) {
+      return direction;
+    }
+    List<Direction> directions = new ArrayList<>();
+    directions.add(Direction.STAND);
+    for (Direction direction : Direction.values()) {
+      int newX = getNewX(direction);
+      int newY = getNewY(direction);
+      if (newX == x && newY == y) continue;
+      directions.add(direction);
+    }
+    return directions.get(random.nextInt(directions.size()));
   }
 }

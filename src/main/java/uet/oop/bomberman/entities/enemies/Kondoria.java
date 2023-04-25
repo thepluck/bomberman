@@ -20,33 +20,26 @@ public class Kondoria extends Enemy {
 
   @Override
   public void updateDirection() {
-    if (directionChangeCountDown > 0) {
-      directionChangeCountDown--;
-    } else {
-      directionChangeCountDown = DEFAULT_DIRECTION_CHANGE_COUNT_DOWN;
-      if (random.nextInt(3) == 0) {
-        currentStrategy = !currentStrategy;
-      }
-      direction = getBestDirection();
+    /// direction -> strategy
+    updateDirectionChangeCountDown();
+    if (directionChangeCountDown == DEFAULT_DIRECTION_CHANGE_COUNT_DOWN) {
+      currentStrategy = !currentStrategy;
     }
-  }
-
-  @Override
-  public Direction getBestDirection() {
     if (currentStrategy) {
-      return getRandomDirection();
+      direction = getRandomDirection();
+      return;
     }
-    Direction bestDirection = Direction.STAND;
+    this.direction = Direction.STAND;
     int bestDistance = Integer.MAX_VALUE;
     for (Direction direction : Direction.values()) {
       if (direction == Direction.STAND) continue;
       int newX = getNewX(direction);
       int newY = getNewY(direction);
+      if (newX == x && newY == y) continue;
       if (Library.getDistanceToBomber(newX, newY) < bestDistance) {
         bestDistance = Library.getDistanceToBomber(newX, newY);
-        bestDirection = direction;
+        this.direction = direction;
       }
     }
-    return bestDirection;
   }
 }

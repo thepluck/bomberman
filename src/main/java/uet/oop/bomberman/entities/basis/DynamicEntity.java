@@ -22,7 +22,6 @@ public abstract class DynamicEntity extends Entity {
     this.speed = DEFAULT_SPEED;
     this.direction = Direction.STAND;
     this.dyingCountDown = 0;
-
   }
 
   public void move() {

@@ -17,8 +17,15 @@ public class Minvo extends Enemy {
   }
 
   @Override
-  public Direction getBestDirection() {
+  public void updateDirection() {
+    updateDirectionChangeCountDown();
     Direction bfsDirection = Library.getBestDirection(getGridX(), getGridY());
-    return bfsDirection == null ? getRandomDirection() : bfsDirection;
+    int newX = getNewX(bfsDirection);
+    int newY = getNewY(bfsDirection);
+    if (newX == x && newY == y) {
+      direction = getRandomDirection();
+    } else {
+      direction = bfsDirection;
+    }
   }
 }
