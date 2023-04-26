@@ -2,7 +2,10 @@ package uet.oop.bomberman.entities.bombers;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.basis.DynamicEntity;
+import uet.oop.bomberman.entities.basis.Enemy;
+import uet.oop.bomberman.entities.basis.Entity;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.processors.Map;
 
 public class Bomber extends DynamicEntity {
   public static final int DEFAULT_DYING_COUNT_DOWN = 60;
@@ -18,6 +21,9 @@ public class Bomber extends DynamicEntity {
 
   @Override
   public void update() {
+    if (!dead && (isCollidingExplosion() || isCollidingEnemy())) {
+      setDead(true);
+    }
     updateImage();
     this.animate();
   }
@@ -110,5 +116,14 @@ public class Bomber extends DynamicEntity {
     assert !this.dead && dead;
     this.dead = true;
     dyingCountDown = DEFAULT_DYING_COUNT_DOWN;
+  }
+
+  public boolean isCollidingEnemy() {
+    for (Enemy enemy : Map.enemies) {
+      if (isColliding(enemy)) {
+        return true;
+      }
+    }
+    return false;
   }
 }

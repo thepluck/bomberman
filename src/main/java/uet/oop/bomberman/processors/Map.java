@@ -29,7 +29,6 @@ public class Map {
   public static int width = 105;
 
   public static Bomber bomber;
-  public static List<DynamicEntity> entities = new ArrayList<>();
   public static List<Entity> statics = new ArrayList<>(); // Grass & Wall
   public static List<Brick> bricks = new ArrayList<>();
   public static List<Bomb> bombs = new ArrayList<>();
@@ -48,7 +47,6 @@ public class Map {
 
   public static void reset() {
     bomber = null;
-    entities.clear();
     statics.clear();
     bombs.clear();
     bricks.clear();
@@ -91,7 +89,6 @@ public class Map {
             bomber = new Bomber(j, i, Sprite.player_right.getFxImage());
             entity = new Grass(j, i);
             statics.add(entity);
-            entities.add(bomber);
           }
           case 'f' -> {
             entity = new Brick(j, i);

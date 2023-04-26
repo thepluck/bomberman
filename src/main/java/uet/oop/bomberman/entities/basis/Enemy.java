@@ -31,6 +31,9 @@ public abstract class Enemy extends DynamicEntity {
   // TO DO: xử lý khi Enemy bị Bomber tấn công
   @Override
   public void update() {
+    if (isCollidingExplosion()) {
+      setDead(true);
+    }
     if (!isDead()) {
       updateSpeed();
       updateDirection();

@@ -5,13 +5,13 @@ import uet.oop.bomberman.entities.basis.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 
 public class Explosion extends Entity {
-  public static int EXPLOSION_TIME = 20;
+  public static int EXPLOSION_TIME = 30;
   public static int EXPLOSION_CYCLE = EXPLOSION_TIME / 3;
   private final Sprite sprite;
   private int animationStep = 0;
 
-  public Explosion(int xUnit, int yUnit, Image image, Direction direction) {
-    super(xUnit, yUnit, image);
+  public Explosion(int xUnit, int yUnit, Direction direction) {
+    super(xUnit, yUnit, null);
     sprite = switch (direction) {
       case UP -> Sprite.movingSprite(
           Sprite.explosion_vertical_up_last,
@@ -57,7 +57,7 @@ public class Explosion extends Entity {
     updateImage();
   }
 
-  boolean isFullyExploded() {
+  public boolean isFullyExploded() {
     return animationStep == EXPLOSION_TIME;
   }
 
