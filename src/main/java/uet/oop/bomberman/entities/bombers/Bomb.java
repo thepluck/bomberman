@@ -71,18 +71,26 @@ public class Bomb extends Entity {
     return exploded;
   }
 
+  public boolean tryExplode(int x, int y) {
+    Entity entity = Map.getEntity(x, y);
+    if (entity instanceof Wall) {
+      return false;
+    }
+    if (entity instanceof Brick) {
+      ((Brick) entity).setDestroyed(true);
+      return false;
+    }
+    return true;
+  }
+
   public void setExploded(boolean exploded) {
     this.exploded = exploded;
     animationStep = 0;
     int gridX = getGridX();
     int gridY = getGridY();
     for (int shiftX = 1; shiftX < length; shiftX++) {
-      Entity entity = Map.getEntity(gridX + shiftX, gridY);
-      if (entity instanceof Wall) {
+      if (!tryExplode(gridX + shiftX, gridY)) {
         break;
-      }
-      if (entity instanceof Brick) {
-        ((Brick) entity).setDestroyed(true);
       }
       Map.explosions.add(
           new Explosion(
@@ -94,12 +102,8 @@ public class Bomb extends Entity {
       );
     }
     for (int shiftX = 1; shiftX < length; shiftX++) {
-      Entity entity = Map.getEntity(gridX - shiftX, gridY);
-      if (entity instanceof Wall) {
+      if (!tryExplode(gridX - shiftX, gridY)) {
         break;
-      }
-      if (entity instanceof Brick) {
-        ((Brick) entity).setDestroyed(true);
       }
       Map.explosions.add(
           new Explosion(
@@ -111,12 +115,8 @@ public class Bomb extends Entity {
       );
     }
     for (int shiftY = 1; shiftY < length; shiftY++) {
-      Entity entity = Map.getEntity(gridX, gridY + shiftY);
-      if (entity instanceof Wall) {
+      if (!tryExplode(gridX, gridY + shiftY)) {
         break;
-      }
-      if (entity instanceof Brick) {
-        ((Brick) entity).setDestroyed(true);
       }
       Map.explosions.add(
           new Explosion(
@@ -128,12 +128,8 @@ public class Bomb extends Entity {
       );
     }
     for (int shiftY = 1; shiftY < length; shiftY++) {
-      Entity entity = Map.getEntity(gridX, gridY - shiftY);
-      if (entity instanceof Wall) {
+      if (!tryExplode(gridX, gridY - shiftY)) {
         break;
-      }
-      if (entity instanceof Brick) {
-        ((Brick) entity).setDestroyed(true);
       }
       Map.explosions.add(
           new Explosion(

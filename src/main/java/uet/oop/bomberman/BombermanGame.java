@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.basis.DynamicEntity;
+import uet.oop.bomberman.entities.bombers.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Display;
 import uet.oop.bomberman.processors.Library;
@@ -37,7 +38,9 @@ public class BombermanGame extends Application {
   public static void endingScene(String imagePath) {
     timer.stop();
     try {
-      ImageView view = new ImageView(new Image(imagePath));
+      ImageView view = new ImageView(BombermanGame.class.getResource(imagePath).toExternalForm());
+      canvas.setHeight(600);
+      canvas.setWidth(800);
       view.setFitHeight(canvas.getHeight());
       view.setFitWidth(canvas.getWidth());
       gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -54,11 +57,11 @@ public class BombermanGame extends Application {
   }
 
   public static void defeatedScene() {
-    endingScene("/images/defeat.png");
+    endingScene("/images/gameover.png");
   }
 
   public static void victoryScene() {
-    endingScene("/images/victory.png");
+    endingScene("/images/victory.jpg");
   }
 
   public static void startGame() {
@@ -75,6 +78,17 @@ public class BombermanGame extends Application {
 
     scene.setOnKeyPressed(keyEvent -> {
       switch (keyEvent.getCode()) {
+        case SPACE -> {
+          if (Map.bombs.size() == Map.bomber.getBombLimit()) {
+            return;
+          }
+          int gridX = Map.bomber.getGridX();
+          int gridY = Map.bomber.getGridY();
+          Map.bombs.add(new Bomb(
+              gridX, gridY,
+              Map.bomber.getBombLength()
+          ));
+        }
         case UP -> {
           Map.bomber.setLocked(false);
           Map.bomber.setDirection(DynamicEntity.Direction.UP);
@@ -116,6 +130,9 @@ public class BombermanGame extends Application {
         }
         Display.render();
         Display.update();
+        if (Map.bomber.isDead()) {
+          defeatedScene();
+        }
       }
     };
 
