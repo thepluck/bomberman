@@ -126,7 +126,6 @@ public class BombermanGame extends Application {
   public void start(Stage stage) {
     // Canh mo dau
     ImageView view = new ImageView(getClass().getResource("/images/background.png").toExternalForm());
-    System.err.println(getClass().getResource("/images/background.png").toExternalForm());
     view.setFitHeight(600);
     view.setFitWidth(800);
 
