@@ -130,7 +130,7 @@ public class BombermanGame extends Application {
         }
         Display.render();
         Display.update();
-        if (Map.bomber.isDead()) {
+        if (Map.bomber.isFullyDead()) {
           defeatedScene();
         }
       }
