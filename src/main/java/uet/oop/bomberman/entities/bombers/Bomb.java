@@ -72,18 +72,6 @@ public class Bomb extends Entity {
     return exploded;
   }
 
-  public boolean tryExplode(int x, int y) {
-    Entity entity = Map.getEntity(x, y);
-    if (entity instanceof Wall) {
-      return false;
-    }
-    if (entity instanceof Brick) {
-      ((Brick) entity).setDestroyed(true);
-      return false;
-    }
-    return true;
-  }
-
   public void setExploded(boolean exploded) {
     this.exploded = exploded;
     SoundPlayer explosionSound = new SoundPlayer("/sounds/explosion.wav", 0, 20);
@@ -96,7 +84,7 @@ public class Bomb extends Entity {
       }
       Map.explosions.add(
           new Explosion(
-            gridX + shiftX, gridY,
+              gridX + shiftX, gridY,
               shiftX == length - 1 ?
                   Explosion.Direction.RIGHT :
                   Explosion.Direction.HORIZONTAL
@@ -144,7 +132,17 @@ public class Bomb extends Entity {
     }
   }
 
-
+  public boolean tryExplode(int x, int y) {
+    Entity entity = Map.getEntity(x, y);
+    if (entity instanceof Wall) {
+      return false;
+    }
+    if (entity instanceof Brick) {
+      ((Brick) entity).setDestroyed(true);
+      return false;
+    }
+    return true;
+  }
 
   public int getAnimationStep() {
     return animationStep;
