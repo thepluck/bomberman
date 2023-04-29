@@ -3,15 +3,16 @@ package uet.oop.bomberman.entities.bombers;
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.basis.DynamicEntity;
 import uet.oop.bomberman.entities.basis.Enemy;
+import uet.oop.bomberman.entities.basis.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Map;
 import uet.oop.bomberman.processors.SoundPlayer;
 
 public class Bomber extends DynamicEntity {
   public static final int DEFAULT_DYING_COUNT_DOWN = 60;
-  public static final int SPEED_LIMIT = 12;
   private int bombLength = 2;
   private int bombLimit = 1;
+  public static final int SPEED_LIMIT = 12;
 
   public Bomber(int xUnit, int yUnit, Image image) {
     super(xUnit, yUnit, image);
@@ -110,7 +111,6 @@ public class Bomber extends DynamicEntity {
   public void increaseBombLimit() {
     bombLimit++;
   }
-
   public void increaseBombLength() {
     bombLength++;
   }

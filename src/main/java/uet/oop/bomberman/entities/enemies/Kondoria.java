@@ -7,7 +7,6 @@ import uet.oop.bomberman.processors.Library;
 
 public class Kondoria extends Enemy {
   private boolean currentStrategy = false;
-
   public Kondoria(int xUnit, int yUnit, Image image) {
     super(xUnit, yUnit, image, 1, 2);
     this.leftSprites = new Sprite[]{Sprite.kondoria_left1, Sprite.kondoria_left2, Sprite.kondoria_left3};

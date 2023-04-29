@@ -5,6 +5,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.SoundPlayer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -12,7 +13,6 @@ public abstract class Enemy extends DynamicEntity {
   public static final int DEFAULT_DYING_COUNT_DOWN = 40;
   public static final int DEFAULT_SPEED_CHANGE_COUNT_DOWN = 50;
   public static final int DEFAULT_DIRECTION_CHANGE_COUNT_DOWN = 100;
-  public static Random random = new Random();
   protected int minSpeed;
   protected int maxSpeed;
   protected int speedChangeCountDown = 0;
@@ -21,6 +21,7 @@ public abstract class Enemy extends DynamicEntity {
   protected Sprite[] rightSprites = new Sprite[3];
   protected Sprite[] sprites = new Sprite[3];
   protected Sprite deadSprite;
+  public static Random random = new Random();
 
   public Enemy(int xUnit, int yUnit, Image image, int minSpeed, int maxSpeed) {
     super(xUnit, yUnit, image);

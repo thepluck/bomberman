@@ -1,10 +1,9 @@
 package uet.oop.bomberman.processors;
 
+import java.io.*;
+import java.net.URL;
 import javax.sound.sampled.*;
 import javax.swing.*;
-import java.io.IOException;
-import java.net.URL;
-
 public class SoundPlayer extends JFrame {
   public SoundPlayer(String path, int loopTimes, float lowerVolume) {
     setDefaultCloseOperation(EXIT_ON_CLOSE);

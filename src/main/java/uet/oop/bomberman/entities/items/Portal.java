@@ -2,9 +2,8 @@ package uet.oop.bomberman.entities.items;
 
 import uet.oop.bomberman.entities.basis.Item;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.processors.Map;
-
 import static uet.oop.bomberman.processors.Map.bomber;
+import uet.oop.bomberman.processors.Map;
 
 
 public class Portal extends Item {

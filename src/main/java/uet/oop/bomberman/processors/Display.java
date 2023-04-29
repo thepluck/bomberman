@@ -1,6 +1,7 @@
 package uet.oop.bomberman.processors;
 
 
+import uet.oop.bomberman.entities.basis.DynamicEntity;
 import uet.oop.bomberman.entities.basis.Enemy;
 import uet.oop.bomberman.entities.basis.Entity;
 import uet.oop.bomberman.entities.basis.Item;

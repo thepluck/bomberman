@@ -2,7 +2,6 @@ package uet.oop.bomberman.entities.items;
 
 import uet.oop.bomberman.entities.basis.Item;
 import uet.oop.bomberman.graphics.Sprite;
-
 import static uet.oop.bomberman.processors.Map.bomber;
 
 public class FlameItem extends Item {
