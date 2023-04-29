@@ -26,7 +26,7 @@ public class BombermanGame extends Application {
   public static Pane root;
   public static Stage stage;
   public static AnimationTimer timer;
-  public static int bfsCountDown = DEFAULT_BFS_COUNTDOWN;
+  public static int bfsCountDown = 0;
 
   public static void main(String[] args) {
     SoundPlayer backgroundMusicPlayer = new SoundPlayer("/sounds/background.wav", Clip.LOOP_CONTINUOUSLY, 10);

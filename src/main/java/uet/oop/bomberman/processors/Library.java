@@ -84,6 +84,9 @@ public class Library {
   public static DynamicEntity.Direction getBestDirection(int x, int y) {
     assert x >= 0 && x < Map.width && y >= 0 && y < Map.height;
     if (lastVisited[x][y] != timer) return DynamicEntity.Direction.STAND;
+    if (bestDirection[x][y] == null) {
+      System.out.println("????");
+    }
     return bestDirection[x][y];
   }
 
