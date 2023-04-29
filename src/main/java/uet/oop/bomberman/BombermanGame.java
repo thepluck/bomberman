@@ -2,6 +2,7 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -14,11 +15,9 @@ import javafx.stage.Stage;
 import uet.oop.bomberman.entities.basis.DynamicEntity;
 import uet.oop.bomberman.entities.bombers.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.processors.Display;
-import uet.oop.bomberman.processors.LevelButton;
-import uet.oop.bomberman.processors.Library;
-import uet.oop.bomberman.processors.Map;
+import uet.oop.bomberman.processors.*;
 
+import javax.sound.sampled.Clip;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -34,11 +33,23 @@ public class BombermanGame extends Application {
   public static int bfsCountDown = DEFAULT_BFS_COUNTDOWN;
 
   public static void main(String[] args) {
+    SoundPlayer backgroundMusicPlayer = new SoundPlayer("/sounds/background.wav", Clip.LOOP_CONTINUOUSLY, 10);
     Application.launch(BombermanGame.class);
   }
 
   public static void endingScene(String imagePath) {
     timer.stop();
+    Task<Void> sleeper = new Task<Void>() {
+      @Override
+      protected Void call() throws Exception {
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        return null;
+      }
+    };
     try {
       ImageView view = new ImageView(BombermanGame.class.getResource(imagePath).toExternalForm());
       canvas.setHeight(600);
@@ -59,7 +70,7 @@ public class BombermanGame extends Application {
   }
 
   public static void defeatedScene() {
-    endingScene("/images/gameover.png");
+    endingScene("/images/gameover.jpg");
   }
 
   public static void victoryScene() {
