@@ -15,6 +15,7 @@ public abstract class DynamicEntity extends Entity {
   protected int dyingCountDown;
   protected int animationStep;
   protected boolean locked;
+
   public DynamicEntity(int xUnit, int yUnit, Image image) {
     super(xUnit, yUnit, image);
     this.dead = false;
@@ -40,7 +41,7 @@ public abstract class DynamicEntity extends Entity {
       default -> x;
     };
   }
-  
+
   public int getNewY(Direction direction) {
     return switch (direction) {
       case UP -> y - getMaxMovable(direction);

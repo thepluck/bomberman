@@ -3,12 +3,9 @@ package uet.oop.bomberman;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.concurrent.Task;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -18,8 +15,6 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.*;
 
 import javax.sound.sampled.Clip;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BombermanGame extends Application {
   public static final int DEFAULT_BFS_COUNTDOWN = 30;
