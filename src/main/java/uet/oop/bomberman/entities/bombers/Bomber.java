@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.basis.Enemy;
 import uet.oop.bomberman.entities.basis.Entity;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Map;
+import uet.oop.bomberman.processors.SoundPlayer;
 
 public class Bomber extends DynamicEntity {
   public static final int DEFAULT_DYING_COUNT_DOWN = 60;
@@ -118,6 +119,7 @@ public class Bomber extends DynamicEntity {
   public void setDead(boolean dead) {
     assert !this.dead && dead;
     this.dead = true;
+    SoundPlayer dyingSound = new SoundPlayer("/sounds/dying.wav", 0, 10);
     dyingCountDown = DEFAULT_DYING_COUNT_DOWN;
   }
 

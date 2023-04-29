@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.statics.Brick;
 import uet.oop.bomberman.entities.statics.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Map;
+import uet.oop.bomberman.processors.SoundPlayer;
 
 public class Bomb extends Entity {
   public static final int TICKING_CYCLE = 90;
@@ -85,6 +86,7 @@ public class Bomb extends Entity {
 
   public void setExploded(boolean exploded) {
     this.exploded = exploded;
+    SoundPlayer explosionSound = new SoundPlayer("/sounds/explosion.wav", 0, 20);
     animationStep = 0;
     int gridX = getGridX();
     int gridY = getGridY();

@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.basis;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.processors.SoundPlayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -96,6 +97,7 @@ public abstract class Enemy extends DynamicEntity {
     this.dead = true;
     dyingCountDown = DEFAULT_DYING_COUNT_DOWN;
     setImage(deadSprite.getFxImage());
+    SoundPlayer dyingSound = new SoundPlayer("/sounds/enemyDying.wav", 0, 10);
   }
 
   public Direction getRandomDirection() {
