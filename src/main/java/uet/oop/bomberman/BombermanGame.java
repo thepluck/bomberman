@@ -130,7 +130,6 @@ public class BombermanGame extends Application {
 
     timer = new AnimationTimer() {
       private static long lastTimestamp = System.nanoTime();
-
       @Override
       public void handle(long now) {
         if (now - lastTimestamp > REFRESH_TIME) {
