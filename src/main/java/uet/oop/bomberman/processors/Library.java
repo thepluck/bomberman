@@ -5,7 +5,6 @@ import uet.oop.bomberman.entities.statics.Grass;
 import uet.oop.bomberman.graphics.Sprite;
 
 import java.util.ArrayDeque;
-import java.util.List;
 import java.util.Queue;
 
 public class Library {
@@ -21,15 +20,19 @@ public class Library {
     return Math.min(l, r) + Sprite.SCALED_SIZE - Math.max(l, r) - MAX_INTERSECTION;
   }
 
+  public static int getTrueIntersection(int l, int r) {
+    return Math.max(Math.min(l, r) + Sprite.SCALED_SIZE - Math.max(l, r), 0);
+  }
+
   /**
    * Check weather the intersection of two rectangles is greater than MAX_INTERSECTION.
    */
   public static boolean isIntersecting(int x1, int y1, int x2, int y2) {
-    return getIntersection(x1, x2) > 0 && getIntersection(y1, y2) > 0;
+    return getTrueIntersection(x1, x2) * getTrueIntersection(y1, y2) > MAX_INTERSECTION * Sprite.SCALED_SIZE;
   }
 
-  public static boolean isInside(int x, int y) {
-    return x >= 0 && x < Map.width && y >= 0 && y < Map.height;
+  public static boolean isOutside(int x, int y) {
+    return x < 0 || x >= Map.width || y < 0 || y >= Map.height;
   }
 
   public static int compress(int x, int y) {
@@ -62,7 +65,7 @@ public class Library {
           case LEFT -> nextX++;
           case RIGHT -> nextX--;
         }
-        if (!isInside(nextX, nextY)) {
+        if (isOutside(nextX, nextY)) {
           continue;
         }
         if (lastVisited[nextX][nextY] == timer) {
