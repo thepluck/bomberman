@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Map {
+  public static int level;
   public static int height = 105;
   public static int width = 105;
 
@@ -55,7 +56,7 @@ public class Map {
     enemies.clear();
   }
 
-  public static void readMap(int level) {
+  public static void readMap() {
     Scanner scanner;
     try {
       scanner = new Scanner(new File("res/levels/Level" + level + ".txt"));
@@ -148,12 +149,15 @@ public class Map {
       }
     }
     scanner.close();
-/*    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
-        Entity entity = getEntity(i, j);
-        System.err.print(entity.getClass().getSimpleName() + " ");
-      }
-      System.err.println();
-    }*/
+  }
+
+  public static void levelUp() {
+    level++;
+    if (level > 3) {
+      BombermanGame.victoryScene();
+      return;
+    }
+    readMap();
+
   }
 }

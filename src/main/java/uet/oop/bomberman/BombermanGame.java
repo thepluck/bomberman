@@ -15,9 +15,11 @@ import uet.oop.bomberman.entities.basis.DynamicEntity;
 import uet.oop.bomberman.entities.bombers.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Display;
+import uet.oop.bomberman.processors.LevelButton;
 import uet.oop.bomberman.processors.Library;
 import uet.oop.bomberman.processors.Map;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BombermanGame extends Application {
@@ -139,56 +141,32 @@ public class BombermanGame extends Application {
     timer.start();
   }
 
+
   @Override
   public void start(Stage stage) {
-    // Canh mo dau
     ImageView view = new ImageView(getClass().getResource("/images/background.png").toExternalForm());
-    view.setFitHeight(600);
-    view.setFitWidth(800);
 
-    ImageView level1View = new ImageView(getClass().getResource("/textures/levels.png").toExternalForm());
-    level1View.setViewport(new Rectangle2D(146, 89, 433, 157));
-    level1View.setFitHeight(70);
-    level1View.setFitWidth(200);
-
-    ImageView level2View = new ImageView(getClass().getResource("/textures/levels.png").toExternalForm());
-    level2View.setViewport(new Rectangle2D(622, 89, 433, 157));
-    level2View.setFitHeight(70);
-    level2View.setFitWidth(200);
-
-    root = new Pane(view);
     canvas = new Canvas(800, 600);
+    view.setFitHeight(canvas.getHeight());
+    view.setFitWidth(canvas.getWidth());
 
-    // Tao button
-    Button level1 = new Button();
-    Button level2 = new Button();
-
-    level1.setOnAction(e -> {
-      Map.readMap(1);
-      level1.setVisible(false);
-      level2.setVisible(false);
-      startGame();
-    });
-
-    level2.setOnAction(e -> {
-      Map.readMap(2);
-      level1.setVisible(false);
-      level2.setVisible(false);
-      startGame();
-    });
-
-    level1.setGraphic(level1View);
-    level2.setGraphic(level2View);
+    LevelButton[] levelButtons = new LevelButton[3];
+    levelButtons[0] = new LevelButton(1, 146, 89);
+    levelButtons[1] = new LevelButton(2, 622, 89);
+    levelButtons[2] = new LevelButton(3, 146, 306);
 
     int xCenter = 350;
     int yCenter = 300;
-    level1.setLayoutX(xCenter - 300);
-    level1.setLayoutY(yCenter);
-    level2.setLayoutX(xCenter - 300);
-    level2.setLayoutY(yCenter + 100);
+    levelButtons[0].setLayoutX(xCenter - 300);
+    levelButtons[0].setLayoutY(yCenter - 100);
+    levelButtons[1].setLayoutX(xCenter - 300);
+    levelButtons[1].setLayoutY(yCenter);
+    levelButtons[2].setLayoutX(xCenter - 300);
+    levelButtons[2].setLayoutY(yCenter + 100);
 
+    root = new Pane(view);
     root.getChildren().add(canvas);
-    root.getChildren().addAll(level1, level2);
+    root.getChildren().addAll(levelButtons);
     scene = new Scene(root);
     BombermanGame.stage = stage;
     stage.setTitle("Bomberman Game");

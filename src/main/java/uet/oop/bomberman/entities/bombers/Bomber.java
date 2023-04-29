@@ -110,6 +110,9 @@ public class Bomber extends DynamicEntity {
   public void increaseBombLimit() {
     bombLimit++;
   }
+  public void increaseBombLength() {
+    bombLength++;
+  }
 
   @Override
   public void setDead(boolean dead) {
