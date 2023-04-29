@@ -22,7 +22,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BombermanGame extends Application {
-  public static final int DEFAULT_BFS_COUNTDOWN = 0;
+  public static final int DEFAULT_BFS_COUNTDOWN = 30;
+  private static final long REFRESH_TIME = 10000000;
 
   public static GraphicsContext gc;
   public static Canvas canvas;
@@ -134,7 +135,6 @@ public class BombermanGame extends Application {
 
     timer = new AnimationTimer() {
       private static long lastTimestamp = System.nanoTime();
-      private static final long REFRESH_TIME = 10000000;
       @Override
       public void handle(long now) {
         if (now - lastTimestamp > REFRESH_TIME) {
