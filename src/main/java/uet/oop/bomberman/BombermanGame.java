@@ -133,22 +133,26 @@ public class BombermanGame extends Application {
     stage.show();
 
     timer = new AnimationTimer() {
+      private static long lastTimestamp = System.nanoTime();
+      private static final long REFRESH_TIME = 10000000;
       @Override
       public void handle(long now) {
-        if (bfsCountDown > 0) {
-          bfsCountDown--;
-        } else {
-          bfsCountDown = DEFAULT_BFS_COUNTDOWN;
-          Library.breathFirstSearch(Map.bomber.getGridX(), Map.bomber.getGridY());
-        }
-        Display.render();
-        Display.update();
-        if (Map.bomber.isFullyDead()) {
-          defeatedScene();
+        if (now - lastTimestamp > REFRESH_TIME) {
+          if (bfsCountDown > 0) {
+            bfsCountDown--;
+          } else {
+            bfsCountDown = DEFAULT_BFS_COUNTDOWN;
+            Library.breathFirstSearch(Map.bomber.getGridX(), Map.bomber.getGridY());
+          }
+          Display.render();
+          Display.update();
+          if (Map.bomber.isFullyDead()) {
+            defeatedScene();
+          }
+          lastTimestamp = System.nanoTime();
         }
       }
     };
-
     timer.start();
   }
 
