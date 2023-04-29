@@ -2,7 +2,6 @@ package uet.oop.bomberman.entities.basis;
 
 import javafx.scene.image.Image;
 import uet.oop.bomberman.entities.statics.Grass;
-import uet.oop.bomberman.entities.statics.Wall;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Library;
 import uet.oop.bomberman.processors.Map;
@@ -61,7 +60,7 @@ public abstract class DynamicEntity extends Entity {
           for (int shiftX = -1; shiftX <= 1; shiftX++) {
             int gridX = x / Sprite.SCALED_SIZE + shiftX;
             int gridY = y / Sprite.SCALED_SIZE + shiftY;
-            if (!Library.isInside(gridX, gridY)) {
+            if (Library.isOutside(gridX, gridY)) {
               continue;
             }
             if (Library.getIntersection(x, gridX * Sprite.SCALED_SIZE) > 0
@@ -77,7 +76,7 @@ public abstract class DynamicEntity extends Entity {
           for (int shiftX = -1; shiftX <= 1; shiftX++) {
             int gridX = x / Sprite.SCALED_SIZE + shiftX;
             int gridY = y / Sprite.SCALED_SIZE + shiftY;
-            if (!Library.isInside(gridX, gridY)) {
+            if (Library.isOutside(gridX, gridY)) {
               continue;
             }
             if (Library.getIntersection(x, gridX * Sprite.SCALED_SIZE) > 0
@@ -93,7 +92,7 @@ public abstract class DynamicEntity extends Entity {
           for (int shiftY = -1; shiftY <= 1; shiftY++) {
             int gridX = x / Sprite.SCALED_SIZE + shiftX;
             int gridY = y / Sprite.SCALED_SIZE + shiftY;
-            if (!Library.isInside(gridX, gridY)) {
+            if (Library.isOutside(gridX, gridY)) {
               continue;
             }
             if (Library.getIntersection(y, gridY * Sprite.SCALED_SIZE) > 0
@@ -109,7 +108,7 @@ public abstract class DynamicEntity extends Entity {
           for (int shiftY = -1; shiftY <= 1; shiftY++) {
             int gridX = x / Sprite.SCALED_SIZE + shiftX;
             int gridY = y / Sprite.SCALED_SIZE + shiftY;
-            if (!Library.isInside(gridX, gridY)) {
+            if (Library.isOutside(gridX, gridY)) {
               continue;
             }
             if (Library.getIntersection(y, gridY * Sprite.SCALED_SIZE) > 0

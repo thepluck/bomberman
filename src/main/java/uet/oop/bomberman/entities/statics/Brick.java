@@ -2,6 +2,7 @@ package uet.oop.bomberman.entities.statics;
 
 import uet.oop.bomberman.entities.basis.Entity;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.processors.Map;
 
 public class Brick extends Entity {
   private boolean destroyed;
@@ -57,6 +58,9 @@ public class Brick extends Entity {
           ).getFxImage()
       );
       animationStep--;
+      if (animationStep == 0) {
+        Map.setEntity(getGridX(), getGridY(), new Grass(getGridX(), getGridY()));
+      }
     }
   }
 

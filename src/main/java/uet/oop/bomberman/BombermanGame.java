@@ -2,6 +2,7 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -12,11 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import uet.oop.bomberman.entities.basis.DynamicEntity;
+import uet.oop.bomberman.entities.bombers.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.processors.Display;
-import uet.oop.bomberman.processors.Library;
-import uet.oop.bomberman.processors.Map;
+import uet.oop.bomberman.processors.*;
 
+import javax.sound.sampled.Clip;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BombermanGame extends Application {
@@ -31,13 +33,27 @@ public class BombermanGame extends Application {
   public static int bfsCountDown = DEFAULT_BFS_COUNTDOWN;
 
   public static void main(String[] args) {
+    SoundPlayer backgroundMusicPlayer = new SoundPlayer("/sounds/background.wav", Clip.LOOP_CONTINUOUSLY, 10);
     Application.launch(BombermanGame.class);
   }
 
   public static void endingScene(String imagePath) {
     timer.stop();
+    Task<Void> sleeper = new Task<Void>() {
+      @Override
+      protected Void call() throws Exception {
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        return null;
+      }
+    };
     try {
-      ImageView view = new ImageView(new Image(imagePath));
+      ImageView view = new ImageView(BombermanGame.class.getResource(imagePath).toExternalForm());
+      canvas.setHeight(600);
+      canvas.setWidth(800);
       view.setFitHeight(canvas.getHeight());
       view.setFitWidth(canvas.getWidth());
       gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -54,11 +70,11 @@ public class BombermanGame extends Application {
   }
 
   public static void defeatedScene() {
-    endingScene("/images/defeat.png");
+    endingScene("/images/gameover.jpg");
   }
 
   public static void victoryScene() {
-    endingScene("/images/victory.png");
+    endingScene("/images/victory.jpg");
   }
 
   public static void startGame() {
@@ -75,6 +91,17 @@ public class BombermanGame extends Application {
 
     scene.setOnKeyPressed(keyEvent -> {
       switch (keyEvent.getCode()) {
+        case SPACE -> {
+          if (Map.bombs.size() == Map.bomber.getBombLimit()) {
+            return;
+          }
+          int gridX = Map.bomber.getGridX();
+          int gridY = Map.bomber.getGridY();
+          Map.bombs.add(new Bomb(
+              gridX, gridY,
+              Map.bomber.getBombLength()
+          ));
+        }
         case UP -> {
           Map.bomber.setLocked(false);
           Map.bomber.setDirection(DynamicEntity.Direction.UP);
@@ -124,64 +151,37 @@ public class BombermanGame extends Application {
           }
           lastTimestamp = System.nanoTime();
         }
-
       }
     };
-
     timer.start();
   }
 
+
   @Override
   public void start(Stage stage) {
-    // Canh mo dau
     ImageView view = new ImageView(getClass().getResource("/images/background.png").toExternalForm());
-    System.err.println(getClass().getResource("/images/background.png").toExternalForm());
-    view.setFitHeight(600);
-    view.setFitWidth(800);
 
-    ImageView level1View = new ImageView(getClass().getResource("/textures/levels.png").toExternalForm());
-    level1View.setViewport(new Rectangle2D(146, 89, 433, 157));
-    level1View.setFitHeight(70);
-    level1View.setFitWidth(200);
-
-    ImageView level2View = new ImageView(getClass().getResource("/textures/levels.png").toExternalForm());
-    level2View.setViewport(new Rectangle2D(622, 89, 433, 157));
-    level2View.setFitHeight(70);
-    level2View.setFitWidth(200);
-
-    root = new Pane(view);
     canvas = new Canvas(800, 600);
+    view.setFitHeight(canvas.getHeight());
+    view.setFitWidth(canvas.getWidth());
 
-    // Tao button
-    Button level1 = new Button();
-    Button level2 = new Button();
-
-    level1.setOnAction(e -> {
-      Map.readMap(1);
-      level1.setVisible(false);
-      level2.setVisible(false);
-      startGame();
-    });
-
-    level2.setOnAction(e -> {
-      Map.readMap(2);
-      level1.setVisible(false);
-      level2.setVisible(false);
-      startGame();
-    });
-
-    level1.setGraphic(level1View);
-    level2.setGraphic(level2View);
+    LevelButton[] levelButtons = new LevelButton[3];
+    levelButtons[0] = new LevelButton(1, 146, 89);
+    levelButtons[1] = new LevelButton(2, 622, 89);
+    levelButtons[2] = new LevelButton(3, 146, 306);
 
     int xCenter = 350;
     int yCenter = 300;
-    level1.setLayoutX(xCenter - 300);
-    level1.setLayoutY(yCenter);
-    level2.setLayoutX(xCenter - 300);
-    level2.setLayoutY(yCenter + 100);
+    levelButtons[0].setLayoutX(xCenter - 300);
+    levelButtons[0].setLayoutY(yCenter - 100);
+    levelButtons[1].setLayoutX(xCenter - 300);
+    levelButtons[1].setLayoutY(yCenter);
+    levelButtons[2].setLayoutX(xCenter - 300);
+    levelButtons[2].setLayoutY(yCenter + 100);
 
+    root = new Pane(view);
     root.getChildren().add(canvas);
-    root.getChildren().addAll(level1, level2);
+    root.getChildren().addAll(levelButtons);
     scene = new Scene(root);
     BombermanGame.stage = stage;
     stage.setTitle("Bomberman Game");

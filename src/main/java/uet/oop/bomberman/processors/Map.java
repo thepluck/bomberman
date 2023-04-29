@@ -25,11 +25,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Map {
+  public static int level;
   public static int height = 105;
   public static int width = 105;
 
   public static Bomber bomber;
-  public static List<DynamicEntity> entities = new ArrayList<>();
   public static List<Entity> statics = new ArrayList<>(); // Grass & Wall
   public static List<Brick> bricks = new ArrayList<>();
   public static List<Bomb> bombs = new ArrayList<>();
@@ -48,7 +48,6 @@ public class Map {
 
   public static void reset() {
     bomber = null;
-    entities.clear();
     statics.clear();
     bombs.clear();
     bricks.clear();
@@ -57,7 +56,7 @@ public class Map {
     enemies.clear();
   }
 
-  public static void readMap(int level) {
+  public static void readMap() {
     Scanner scanner;
     try {
       scanner = new Scanner(new File("res/levels/Level" + level + ".txt"));
@@ -91,7 +90,6 @@ public class Map {
             bomber = new Bomber(j, i, Sprite.player_right.getFxImage());
             entity = new Grass(j, i);
             statics.add(entity);
-            entities.add(bomber);
           }
           case 'f' -> {
             entity = new Brick(j, i);
@@ -151,12 +149,15 @@ public class Map {
       }
     }
     scanner.close();
-/*    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
-        Entity entity = getEntity(i, j);
-        System.err.print(entity.getClass().getSimpleName() + " ");
-      }
-      System.err.println();
-    }*/
+  }
+
+  public static void levelUp() {
+    level++;
+    if (level > 3) {
+      BombermanGame.victoryScene();
+      return;
+    }
+    readMap();
+
   }
 }
