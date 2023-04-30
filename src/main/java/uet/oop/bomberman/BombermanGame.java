@@ -19,7 +19,6 @@ import javax.sound.sampled.Clip;
 public class BombermanGame extends Application {
   public static final int DEFAULT_BFS_COUNTDOWN = 30;
   private static final long REFRESH_TIME = 10000000;
-
   public static GraphicsContext gc;
   public static Canvas canvas;
   public static Scene scene;
@@ -168,11 +167,11 @@ public class BombermanGame extends Application {
     int xCenter = 350;
     int yCenter = 300;
     levelButtons[0].setLayoutX(xCenter - 300);
-    levelButtons[0].setLayoutY(yCenter - 100);
+    levelButtons[0].setLayoutY(yCenter - 50);
     levelButtons[1].setLayoutX(xCenter - 300);
-    levelButtons[1].setLayoutY(yCenter);
+    levelButtons[1].setLayoutY(yCenter + 50);
     levelButtons[2].setLayoutX(xCenter - 300);
-    levelButtons[2].setLayoutY(yCenter + 100);
+    levelButtons[2].setLayoutY(yCenter + 150);
 
     root = new Pane(view);
     root.getChildren().add(canvas);
