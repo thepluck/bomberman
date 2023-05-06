@@ -37,6 +37,8 @@ public class Map {
   public static List<Enemy> enemies = new ArrayList<>();
   public static Entity[][] entityMap = new Entity[width][height];
 
+  public static final int MAX_LEVEL = 9;
+
   public static Entity getEntity(int x, int y) {
     return x < width && y < height ? entityMap[x][y] : null;
   }
@@ -152,7 +154,7 @@ public class Map {
 
   public static void levelUp() {
     level++;
-    if (level > 3) {
+    if (level > MAX_LEVEL) {
       BombermanGame.victoryScene();
       return;
     }
