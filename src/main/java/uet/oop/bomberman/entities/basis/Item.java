@@ -18,7 +18,7 @@ public abstract class Item extends Entity {
   public void setEaten(boolean eaten) {
     this.eaten = eaten;
     if (!(this instanceof Portal)) {
-      SoundPlayer eatenSound = new SoundPlayer("/sounds/eaten.wav", 0, 0);
+      sound = new SoundPlayer("/sounds/eaten.wav", 0, 0);
     }
   }
 }

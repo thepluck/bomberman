@@ -74,7 +74,7 @@ public class Bomb extends Entity {
 
   public void setExploded(boolean exploded) {
     this.exploded = exploded;
-    SoundPlayer explosionSound = new SoundPlayer("/sounds/explosion.wav", 0, 20);
+    sound = new SoundPlayer("/sounds/explosion.wav", 0, 20);
     animationStep = 0;
     int gridX = getGridX();
     int gridY = getGridY();

@@ -119,7 +119,7 @@ public class Bomber extends DynamicEntity {
   public void setDead(boolean dead) {
     assert !this.dead && dead;
     this.dead = true;
-    SoundPlayer dyingSound = new SoundPlayer("/sounds/dying.wav", 0, 10);
+    sound = new SoundPlayer("/sounds/dying.wav", 0, 10);
     dyingCountDown = DEFAULT_DYING_COUNT_DOWN;
   }
 

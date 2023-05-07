@@ -6,9 +6,14 @@ import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import uet.oop.bomberman.buttons.LevelButton;
+import uet.oop.bomberman.buttons.PauseButton;
+import uet.oop.bomberman.buttons.SoundButton;
+import uet.oop.bomberman.buttons.UIButton;
 import uet.oop.bomberman.entities.basis.DynamicEntity;
 import uet.oop.bomberman.entities.bombers.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
@@ -26,35 +31,61 @@ public class BombermanGame extends Application {
   public static Stage stage;
   public static AnimationTimer timer;
   public static int bfsCountDown = 0;
+  public static SoundPlayer backgroundMusicPlayer;
+  public static boolean paused = false;
 
   public static void main(String[] args) {
-    SoundPlayer backgroundMusicPlayer = new SoundPlayer("/sounds/background.wav", Clip.LOOP_CONTINUOUSLY, 10);
+    backgroundMusicPlayer = new SoundPlayer("/sounds/background.wav", Clip.LOOP_CONTINUOUSLY, 10);
     Application.launch(BombermanGame.class);
   }
 
   public static void endingScene(String imagePath) {
+
+  }
+
+  public static void defeatedScene() {
     timer.stop();
-    Task<Void> sleeper = new Task<Void>() {
-      @Override
-      protected Void call() throws Exception {
-        try {
-          Thread.sleep(1000);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
-        }
-        return null;
-      }
-    };
     try {
-      ImageView view = new ImageView(BombermanGame.class.getResource(imagePath).toExternalForm());
+      UIButton resetButton = new UIButton(1300, 168, 600, 225, 220, 100);
+      resetButton.setOnAction(e -> {
+        timer.stop();
+        stage.close();
+        createMainScreen();
+      });
+      ImageView view = new ImageView(BombermanGame.class.getResource("/images/gameover.jpg").toExternalForm());
       canvas.setHeight(600);
-      canvas.setWidth(800);
+      canvas.setWidth(1100);
+      resetButton.setLayoutX(450);
+      resetButton.setLayoutY(20);
+      view.setFitHeight(canvas.getHeight());
+      view.setFitWidth(canvas.getWidth());
+      gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+      root = new Pane(view);
+      root.getChildren().add(canvas);
+      root.getChildren().add(resetButton);
+      scene = new Scene(root);
+      scene.getStylesheets().add(BombermanGame.class.getResource("/stylesheets/LevelButton.css").toExternalForm());
+      stage.setScene(scene);
+      stage.show();
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.exit(0);
+    }
+  }
+
+  public static void victoryScene() {
+    timer.stop();
+    try {
+      ImageView view = new ImageView(BombermanGame.class.getResource("/images/victory.jpg").toExternalForm());
+      canvas.setHeight(600);
+      canvas.setWidth(1100);
       view.setFitHeight(canvas.getHeight());
       view.setFitWidth(canvas.getWidth());
       gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
       root = new Pane(view);
       root.getChildren().add(canvas);
       scene = new Scene(root);
+      scene.getStylesheets().add(BombermanGame.class.getResource("/stylesheets/LevelButton.css").toExternalForm());
       scene.setOnKeyPressed(keyEvent -> System.exit(0));
       stage.setScene(scene);
       stage.show();
@@ -64,15 +95,25 @@ public class BombermanGame extends Application {
     }
   }
 
-  public static void defeatedScene() {
-    endingScene("/images/gameover.jpg");
-  }
-
-  public static void victoryScene() {
-    endingScene("/images/victory.jpg");
-  }
-
   public static void startGame() {
+    Map.readMap();
+    SoundButton soundButton = new SoundButton(156, 156);
+    soundButton.setLayoutX(1380);
+    soundButton.setLayoutY(0);
+
+    UIButton homeButton = new UIButton(537, 1476, 198, 178, 50, 50);
+    homeButton.setOnMouseClicked(e -> {
+      timer.stop();
+      stage.close();
+      createMainScreen();
+    });
+    homeButton.setLayoutX(1430);
+    homeButton.setLayoutY(0);
+
+    PauseButton pauseButton = new PauseButton(156, 156);
+    pauseButton.setLayoutX(1330);
+    pauseButton.setLayoutY(0);
+
     stage.close();
     // Tao canvas
     canvas = new Canvas(Sprite.SCALED_SIZE * Map.width, Sprite.SCALED_SIZE * Map.height);
@@ -81,10 +122,16 @@ public class BombermanGame extends Application {
     // Tao root container
     root = new Pane();
     root.getChildren().add(canvas);
+    root.getChildren().add(soundButton);
+    root.getChildren().add(homeButton);
+    root.getChildren().add(pauseButton);
     // Tao scene
     scene = new Scene(root);
 
     scene.setOnKeyPressed(keyEvent -> {
+      if (paused) {
+        return;
+      }
       switch (keyEvent.getCode()) {
         case SPACE -> {
           if (Map.bombs.size() == Map.bomber.getBombLimit()) {
@@ -123,14 +170,19 @@ public class BombermanGame extends Application {
       }
     });
 
+    scene.getStylesheets().add(BombermanGame.class.getResource("/stylesheets/LevelButton.css").toExternalForm());
+
     // Them scene vao stage
     stage.setScene(scene);
     stage.show();
+
+    canvas.requestFocus();
 
     timer = new AnimationTimer() {
       private static long lastTimestamp = System.nanoTime();
       @Override
       public void handle(long now) {
+        canvas.requestFocus();
         if (now - lastTimestamp > REFRESH_TIME) {
           if (bfsCountDown > 0) {
             bfsCountDown--;
@@ -150,36 +202,56 @@ public class BombermanGame extends Application {
     timer.start();
   }
 
+  public static void createLevelSelection() {
+    LevelButton[] levelButtons = new LevelButton[9];
+    for (int i = 0; i < 3; i++)
+      for (int j = 0; j < 3; j++) {
+        LevelButton button;
+        button = new LevelButton(
+                i * 3 + j + 1, 474 + 474 * i,
+                541 + 540 * j, 304, 304);
+        button.setLayoutX(100 + 100 * i);
+        button.setLayoutY(250 + 100 * j);
+        levelButtons[i * 3 + j] = button;
+      }
+    root.getChildren().addAll(levelButtons);
+  }
 
-  @Override
-  public void start(Stage stage) {
-    ImageView view = new ImageView(getClass().getResource("/images/background.png").toExternalForm());
+  public static void createMainScreen() {
+    ImageView view = new ImageView(BombermanGame.class.getResource("/images/background.jpg").toExternalForm());
 
-    canvas = new Canvas(800, 600);
+    canvas = new Canvas(1100, 600);
     view.setFitHeight(canvas.getHeight());
     view.setFitWidth(canvas.getWidth());
 
-    LevelButton[] levelButtons = new LevelButton[3];
-    levelButtons[0] = new LevelButton(1, 146, 89);
-    levelButtons[1] = new LevelButton(2, 622, 89);
-    levelButtons[2] = new LevelButton(3, 146, 306);
+    UIButton newGameButton = new UIButton(100, 168, 600, 225, 220, 100);
+    newGameButton.setOnAction(e -> {
+      Map.level = 1;
+      startGame();
+    });
+    newGameButton.setLayoutX(100);
+    newGameButton.setLayoutY(250);
 
-    int xCenter = 350;
-    int yCenter = 300;
-    levelButtons[0].setLayoutX(xCenter - 300);
-    levelButtons[0].setLayoutY(yCenter - 50);
-    levelButtons[1].setLayoutX(xCenter - 300);
-    levelButtons[1].setLayoutY(yCenter + 50);
-    levelButtons[2].setLayoutX(xCenter - 300);
-    levelButtons[2].setLayoutY(yCenter + 150);
+    UIButton levelSelectionButton = new UIButton(712, 412, 600, 225, 220, 100);
+    levelSelectionButton.setOnAction(e -> {
+      newGameButton.setVisible(false);
+      levelSelectionButton.setVisible(false);
+      createLevelSelection();
+    });
+    levelSelectionButton.setLayoutX(100);
+    levelSelectionButton.setLayoutY(350);
 
-    root = new Pane(view);
-    root.getChildren().add(canvas);
-    root.getChildren().addAll(levelButtons);
+    root = new Pane(view, newGameButton, levelSelectionButton);
     scene = new Scene(root);
-    BombermanGame.stage = stage;
-    stage.setTitle("Bomberman Game");
+    scene.getStylesheets().add(BombermanGame.class.getResource("/stylesheets/LevelButton.css").toExternalForm());
     stage.setScene(scene);
     stage.show();
+  }
+
+
+  @Override
+  public void start(Stage stage) {
+    BombermanGame.stage = stage;
+    createMainScreen();
   }
 }

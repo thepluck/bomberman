@@ -7,12 +7,13 @@ import uet.oop.bomberman.entities.bombers.Explosion;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.processors.Library;
 import uet.oop.bomberman.processors.Map;
+import uet.oop.bomberman.processors.SoundPlayer;
 
 public abstract class Entity {
   protected int x;
   protected int y;
   protected Image image;
-
+  protected SoundPlayer sound;
   //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
   public Entity(int xUnit, int yUnit, Image image) {
     this.x = xUnit * Sprite.SCALED_SIZE;
@@ -78,5 +79,11 @@ public abstract class Entity {
   /// TO DO: xử lý va chạm
   public boolean isColliding(Entity e) {
     return Library.isIntersecting(x, y, e.x, e.y);
+  }
+
+  public void toggle() {
+    if (sound != null) {
+      sound.toggle();
+    }
   }
 }
