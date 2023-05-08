@@ -1,4 +1,5 @@
-target/
+target/*
+!target/bomberman-v0.1.jar
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/
