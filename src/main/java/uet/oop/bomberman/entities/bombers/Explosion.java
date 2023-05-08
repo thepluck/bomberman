@@ -6,49 +6,44 @@ import uet.oop.bomberman.graphics.Sprite;
 public class Explosion extends Entity {
   public static int EXPLOSION_TIME = 30;
   public static int EXPLOSION_CYCLE = EXPLOSION_TIME / 3;
-  private final Sprite sprite;
+  private final Sprite[] sprites = new Sprite[3];
   private int animationStep = 0;
 
   public Explosion(int xUnit, int yUnit, Direction direction) {
     super(xUnit, yUnit, null);
-    sprite = switch (direction) {
-      case UP -> Sprite.movingSprite(
-          Sprite.explosion_vertical_up_last,
-          Sprite.explosion_vertical_up_last1,
-          Sprite.explosion_vertical_up_last2,
-          animationStep, EXPLOSION_CYCLE
-      );
-      case DOWN -> Sprite.movingSprite(
-          Sprite.explosion_vertical_down_last,
-          Sprite.explosion_vertical_down_last1,
-          Sprite.explosion_vertical_down_last2,
-          animationStep, EXPLOSION_CYCLE
-      );
-      case LEFT -> Sprite.movingSprite(
-          Sprite.explosion_horizontal_left_last,
-          Sprite.explosion_horizontal_left_last1,
-          Sprite.explosion_horizontal_left_last2,
-          animationStep, EXPLOSION_CYCLE);
-      case RIGHT -> Sprite.movingSprite(
-          Sprite.explosion_horizontal_right_last,
-          Sprite.explosion_horizontal_right_last1,
-          Sprite.explosion_horizontal_right_last2,
-          animationStep, EXPLOSION_CYCLE
-      );
-      case VERTICAL -> Sprite.movingSprite(
-          Sprite.explosion_vertical,
-          Sprite.explosion_vertical1,
-          Sprite.explosion_vertical2,
-          animationStep, EXPLOSION_CYCLE
-      );
-      case HORIZONTAL -> Sprite.movingSprite(
-          Sprite.explosion_horizontal,
-          Sprite.explosion_horizontal1,
-          Sprite.explosion_horizontal2,
-          animationStep, EXPLOSION_CYCLE
-      );
-      default -> null;
+    switch (direction) {
+      case UP -> {
+        sprites[0] = Sprite.explosion_vertical_up_last;
+        sprites[1] = Sprite.explosion_vertical_up_last1;
+        sprites[2] = Sprite.explosion_vertical_up_last2;
+      }
+      case DOWN -> {
+        sprites[0] = Sprite.explosion_vertical_down_last;
+        sprites[1] = Sprite.explosion_vertical_down_last1;
+        sprites[2] = Sprite.explosion_vertical_down_last2;
+      }
+      case LEFT -> {
+        sprites[0] = Sprite.explosion_horizontal_left_last;
+        sprites[1] = Sprite.explosion_horizontal_left_last1;
+        sprites[2] = Sprite.explosion_horizontal_left_last2;
+      }
+      case RIGHT -> {
+        sprites[0] = Sprite.explosion_horizontal_right_last;
+        sprites[1] = Sprite.explosion_horizontal_right_last1;
+        sprites[2] = Sprite.explosion_horizontal_right_last2;
+      }
+      case VERTICAL -> {
+        sprites[0] = Sprite.explosion_vertical;
+        sprites[1] = Sprite.explosion_vertical1;
+        sprites[2] = Sprite.explosion_vertical2;
+      }
+      case HORIZONTAL -> {
+        sprites[0] = Sprite.explosion_horizontal;
+        sprites[1] = Sprite.explosion_horizontal1;
+        sprites[2] = Sprite.explosion_horizontal2;
+      }
     };
+    setImage(sprites[0].getFxImage());
   }
 
   @Override
@@ -63,7 +58,14 @@ public class Explosion extends Entity {
   @Override
   public void updateImage() {
     if (isFullyExploded()) return;
-    setImage(sprite.getFxImage());
+    setImage(
+        Sprite.movingSprite(
+            sprites[0],
+            sprites[1],
+            sprites[2],
+            animationStep,
+            EXPLOSION_CYCLE
+        ).getFxImage());
     animationStep++;
   }
 
