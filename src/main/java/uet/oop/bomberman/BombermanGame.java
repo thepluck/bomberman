@@ -49,8 +49,7 @@ public class BombermanGame extends Application {
       UIButton resetButton = new UIButton(1300, 168, 600, 225, 220, 100);
       resetButton.setOnAction(e -> {
         timer.stop();
-        stage.close();
-        createMainScreen();
+        startGame();
       });
       ImageView view = new ImageView(BombermanGame.class.getResource("/images/gameover.jpg").toExternalForm());
       canvas.setHeight(600);
@@ -86,7 +85,7 @@ public class BombermanGame extends Application {
       root.getChildren().add(canvas);
       scene = new Scene(root);
       scene.getStylesheets().add(BombermanGame.class.getResource("/stylesheets/LevelButton.css").toExternalForm());
-      scene.setOnKeyPressed(keyEvent -> System.exit(0));
+      scene.setOnKeyPressed(keyEvent -> System.exit(0 ));
       stage.setScene(scene);
       stage.show();
     } catch (Exception e) {
@@ -97,8 +96,14 @@ public class BombermanGame extends Application {
 
   public static void startGame() {
     Map.readMap();
+
+    stage.close();
+    // Tao canvas
+    canvas = new Canvas(Sprite.SCALED_SIZE * Map.width, Sprite.SCALED_SIZE * Map.height);
+    gc = canvas.getGraphicsContext2D();
+
     SoundButton soundButton = new SoundButton(156, 156);
-    soundButton.setLayoutX(1380);
+    soundButton.setLayoutX(canvas.getWidth() - 108);
     soundButton.setLayoutY(0);
 
     UIButton homeButton = new UIButton(537, 1476, 198, 178, 50, 50);
@@ -107,17 +112,12 @@ public class BombermanGame extends Application {
       stage.close();
       createMainScreen();
     });
-    homeButton.setLayoutX(1430);
+    homeButton.setLayoutX(canvas.getWidth() - 58);
     homeButton.setLayoutY(0);
 
     PauseButton pauseButton = new PauseButton(156, 156);
-    pauseButton.setLayoutX(1330);
+    pauseButton.setLayoutX(canvas.getWidth() - 158);
     pauseButton.setLayoutY(0);
-
-    stage.close();
-    // Tao canvas
-    canvas = new Canvas(Sprite.SCALED_SIZE * Map.width, Sprite.SCALED_SIZE * Map.height);
-    gc = canvas.getGraphicsContext2D();
 
     // Tao root container
     root = new Pane();
@@ -208,7 +208,7 @@ public class BombermanGame extends Application {
       for (int j = 0; j < 3; j++) {
         LevelButton button;
         button = new LevelButton(
-                i * 3 + j + 1, 474 + 474 * i,
+                i + j * 3 + 1, 474 + 474 * i,
                 541 + 540 * j, 304, 304);
         button.setLayoutX(100 + 100 * i);
         button.setLayoutY(250 + 100 * j);
