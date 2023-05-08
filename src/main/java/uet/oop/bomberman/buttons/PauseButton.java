@@ -6,7 +6,6 @@ import javafx.scene.image.ImageView;
 import uet.oop.bomberman.BombermanGame;
 import uet.oop.bomberman.entities.basis.Enemy;
 import uet.oop.bomberman.processors.Library;
-import uet.oop.bomberman.processors.SoundPlayer;
 
 public class PauseButton extends UIButton {
   public PauseButton(int width, int height) {

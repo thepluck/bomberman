@@ -2,11 +2,9 @@ package uet.oop.bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -17,7 +15,10 @@ import uet.oop.bomberman.buttons.UIButton;
 import uet.oop.bomberman.entities.basis.DynamicEntity;
 import uet.oop.bomberman.entities.bombers.Bomb;
 import uet.oop.bomberman.graphics.Sprite;
-import uet.oop.bomberman.processors.*;
+import uet.oop.bomberman.processors.Display;
+import uet.oop.bomberman.processors.Library;
+import uet.oop.bomberman.processors.Map;
+import uet.oop.bomberman.processors.SoundPlayer;
 
 import javax.sound.sampled.Clip;
 
@@ -85,7 +86,7 @@ public class BombermanGame extends Application {
       root.getChildren().add(canvas);
       scene = new Scene(root);
       scene.getStylesheets().add(BombermanGame.class.getResource("/stylesheets/LevelButton.css").toExternalForm());
-      scene.setOnKeyPressed(keyEvent -> System.exit(0 ));
+      scene.setOnKeyPressed(keyEvent -> System.exit(0));
       stage.setScene(scene);
       stage.show();
     } catch (Exception e) {
@@ -180,6 +181,7 @@ public class BombermanGame extends Application {
 
     timer = new AnimationTimer() {
       private static long lastTimestamp = System.nanoTime();
+
       @Override
       public void handle(long now) {
         canvas.requestFocus();
@@ -208,8 +210,8 @@ public class BombermanGame extends Application {
       for (int j = 0; j < 3; j++) {
         LevelButton button;
         button = new LevelButton(
-                i + j * 3 + 1, 474 + 474 * i,
-                541 + 540 * j, 304, 304);
+            i + j * 3 + 1, 474 + 474 * i,
+            541 + 540 * j, 304, 304);
         button.setLayoutX(100 + 100 * i);
         button.setLayoutY(250 + 100 * j);
         levelButtons[i * 3 + j] = button;

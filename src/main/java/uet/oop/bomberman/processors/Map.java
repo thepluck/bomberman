@@ -24,10 +24,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Map {
+  public static final int MAX_LEVEL = 9;
   public static int level;
   public static int height = 105;
   public static int width = 105;
-
   public static Bomber bomber;
   public static List<Entity> statics = new ArrayList<>(); // Grass & Wall
   public static List<Brick> bricks = new ArrayList<>();
@@ -35,9 +35,8 @@ public class Map {
   public static List<Explosion> explosions = new ArrayList<>();
   public static List<Item> items = new ArrayList<>();
   public static List<Enemy> enemies = new ArrayList<>();
+  public static List<Portal> portals = new ArrayList<>();
   public static Entity[][] entityMap = new Entity[width][height];
-
-  public static final int MAX_LEVEL = 9;
 
   public static Entity getEntity(int x, int y) {
     return x < width && y < height ? entityMap[x][y] : null;
@@ -55,6 +54,7 @@ public class Map {
     explosions.clear();
     items.clear();
     enemies.clear();
+    portals.clear();
   }
 
   public static void readMap() {
@@ -114,7 +114,7 @@ public class Map {
             entity = new Brick(j, i);
             statics.add(new Grass(j, i));
             bricks.add((Brick) entity);
-            items.add(new Portal(j, i));
+            portals.add(new Portal(j, i));
           }
           case '1' -> {
             entity = new Grass(j, i);

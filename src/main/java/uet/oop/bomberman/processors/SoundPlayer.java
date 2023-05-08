@@ -14,6 +14,7 @@ public class SoundPlayer extends JFrame {
   public static boolean muted = false;
   private FloatControl gainControl;
   private float lowerVolume;
+
   public SoundPlayer(String path, int loopTimes, float lowerVolume) {
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     this.lowerVolume = lowerVolume;
@@ -35,14 +36,6 @@ public class SoundPlayer extends JFrame {
     }
   }
 
-  public void toggle() {
-    if (muted) {
-      gainControl.setValue(gainControl.getMinimum());
-    } else {
-      gainControl.setValue(-lowerVolume);
-    }
-  }
-
   public static void toggleAll() {
     muted = !muted;
     BombermanGame.backgroundMusicPlayer.toggle();
@@ -55,6 +48,14 @@ public class SoundPlayer extends JFrame {
     }
     for (Bomb bomb : Map.bombs) {
       bomb.toggle();
+    }
+  }
+
+  public void toggle() {
+    if (muted) {
+      gainControl.setValue(gainControl.getMinimum());
+    } else {
+      gainControl.setValue(-lowerVolume);
     }
   }
 }

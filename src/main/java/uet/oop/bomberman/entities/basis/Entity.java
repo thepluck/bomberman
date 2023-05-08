@@ -14,6 +14,7 @@ public abstract class Entity {
   protected int y;
   protected Image image;
   protected SoundPlayer sound;
+
   //Khởi tạo đối tượng, chuyển từ tọa độ đơn vị sang tọa độ trong canvas
   public Entity(int xUnit, int yUnit, Image image) {
     this.x = xUnit * Sprite.SCALED_SIZE;

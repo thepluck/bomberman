@@ -30,6 +30,13 @@ public abstract class Enemy extends DynamicEntity {
     this.maxSpeed = maxSpeed;
   }
 
+  public static void toggleAll() {
+    BombermanGame.paused = !BombermanGame.paused;
+    for (Enemy enemy : Map.enemies) {
+      enemy.locked = !enemy.locked;
+    }
+  }
+
   // TO DO: xử lý khi Enemy bị Bomber tấn công
   @Override
   public void update() {
@@ -114,12 +121,5 @@ public abstract class Enemy extends DynamicEntity {
       directions.add(direction);
     }
     return directions.get(random.nextInt(directions.size()));
-  }
-
-  public static void toggleAll() {
-    BombermanGame.paused = !BombermanGame.paused;
-    for (Enemy enemy : Map.enemies) {
-      enemy.locked = !enemy.locked;
-    }
   }
 }

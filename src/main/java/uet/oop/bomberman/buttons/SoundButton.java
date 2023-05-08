@@ -1,12 +1,8 @@
 package uet.oop.bomberman.buttons;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import uet.oop.bomberman.BombermanGame;
-import uet.oop.bomberman.entities.bombers.Bomb;
-import uet.oop.bomberman.entities.bombers.Bomber;
 import uet.oop.bomberman.processors.Library;
 import uet.oop.bomberman.processors.SoundPlayer;
 

@@ -24,8 +24,9 @@ public class Display {
     statics.forEach(g -> g.render(gc));
     bomber.render(gc);
     bombs.forEach(g -> g.render(gc));
-    bricks.forEach(g -> g.render(gc));
+    portals.forEach(g -> g.render(gc));
     items.forEach(g -> g.render(gc));
+    bricks.forEach(g -> g.render(gc));
     enemies.forEach(g -> g.render(gc));
     explosions.forEach(g -> g.render(gc));
     bomber.render(gc);
